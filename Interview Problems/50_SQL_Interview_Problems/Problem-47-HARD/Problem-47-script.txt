@@ -1,0 +1,10 @@
+-- identify the length of individual value by comma separated value
+
+drop table if exists value_table;
+create table value_table
+(val varchar(40));
+insert into value_table values('99,999,999,00');
+insert into value_table values('0,0');
+insert into value_table values('1,9999,9');
+
+select * from value_table;

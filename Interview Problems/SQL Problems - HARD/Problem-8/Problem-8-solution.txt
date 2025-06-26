@@ -1,0 +1,24 @@
+
+
+select * 
+from road_trip_clothing c
+cross join lateral (select generate_series(1,c.item_count));
+
+select items 
+from (select items, generate_series(1,c.item_count)
+	  from road_trip_clothing c) x;
+	
+with recursive cte as
+	(select items, item_count - 1 as item_count
+	from road_trip_clothing
+	union all
+	select c.items, cte.item_count - 1 as item_count
+	from cte 
+	join road_trip_clothing c 
+		on c.items = cte.items 
+		and cte.item_count > 0
+	)
+select items from cte
+order by items ;
+
+

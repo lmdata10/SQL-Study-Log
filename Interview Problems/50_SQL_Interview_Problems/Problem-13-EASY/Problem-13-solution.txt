@@ -1,0 +1,6 @@
+
+
+select round(avg(user_id),2)
+from taxi_rides
+where (status is null or status ='Completed')
+and dates between current_date - interval '30 DAY' and current_date;

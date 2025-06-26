@@ -1,0 +1,20 @@
+/* --------------------------------------------------------------------------- */
+-- Data Combination:
+-- Look at the input data and write a query to transform it as the expected output.
+
+drop table employee_info;
+create table employee_info
+    (
+        id              int,
+        emp_name        varchar(40),
+        department      varchar(40),
+        grade           varchar(10),
+        salary          int
+    );
+insert into employee_info values (1, 'Alex', 'EBS', 'P4', 9000);
+insert into employee_info values (2, 'Mike', 'Marketing', 'P4', 6000);
+insert into employee_info values (3, 'Ravi', 'EBS', 'P3', 7000);
+insert into employee_info values (4, 'Mary', 'Marketing', 'P3', 4000);
+insert into employee_info values (5, 'Joy', 'EBS', 'P1', 3000);
+insert into employee_info values (6, 'Lindi', 'Marketing', 'P1', 2000);
+commit;

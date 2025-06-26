@@ -1,0 +1,7 @@
+-- Solution :
+select 'wacky.txt' as filename, string_agg(x.contents, ' ')
+from (
+    select unnest(string_to_array(lower(contents),' ')) as contents
+    from google_file_store
+    where filename='final.txt'
+    order by 1) x

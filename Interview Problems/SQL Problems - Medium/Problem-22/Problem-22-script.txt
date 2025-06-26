@@ -1,0 +1,81 @@
+/* --- Social Media – Viral Post Prediction ---
+
+Problem Statement: 
+Identify posts that are likely to go viral based on engagement (likes + shares + comments) within the first 24 hours.
+
+*/
+
+-- Users Table
+drop TABLE if exists users;
+CREATE TABLE users 
+(
+    user_id int,
+    name VARCHAR(100),
+    email VARCHAR(100) ,
+    signup_date DATE,
+    country VARCHAR(50)
+);
+
+INSERT INTO users (user_id, name, email, signup_date, country) VALUES
+    (1, 'Emma Watson', 'emma@tmail.com', '2023-01-01', 'USA'),
+    (2, 'Liam Brown', 'liam@tmail.com', '2022-09-15', 'Canada'),
+    (3, 'Sophia Wilson', 'sophia@tmail.com', '2023-06-10', 'UK');
+
+-- Posts Table
+drop TABLE if exists posts;
+CREATE TABLE posts 
+(
+    post_id int,
+    user_id INT ,
+    post_date TIMESTAMP DEFAULT current_date(),
+    content TEXT,
+    likes INT DEFAULT 0,
+    shares INT DEFAULT 0
+);
+
+INSERT INTO posts (post_id, user_id, post_date, content, likes, shares) VALUES
+    (1, 1, '2025-03-15 12:30:00', 'Hello world!', 50, 10),
+    (2, 2, '2025-03-15 14:00:00', 'SQL is awesome!', 100, 30),
+    (3, 3, '2025-03-15 14:00:00', 'Data Science tips', 90, 40),
+    (4, 2, '2025-03-14 14:00:00', 'Python is awesome!', 60, 20),
+    (5, 3, '2025-03-14 16:45:00', 'Data analysis tips', 80, 25),
+    (6, 1, '2025-03-15 12:30:00', 'HeySQL', 150, 50),
+    (7, 2, '2025-03-15 14:00:00', 'Snowflake is ANSI SQL compliant', 75, 20),
+    (8, 3, '2025-03-13 14:00:00', 'Data is king!', 30, 10),
+    (9, 3, '2025-03-14 14:00:00', 'Fastest way to become Data Scientist in 2025', 50, 10),
+    (10, 3, '2025-03-15 16:45:00', 'Data Engineer roadmap...', 120, 35);
+
+
+-- Comments Table
+drop TABLE if exists comments;
+CREATE TABLE comments 
+(
+    comment_id INT ,
+    post_id int,
+    comments varchar(500)
+);
+
+INSERT INTO comments (comment_id, post_id, comments) VALUES
+    (1, 1, 'Well said...'),
+    (2, 2, 'True that!'),
+    (3, 3, 'Waiting!'),
+    (4, 4, 'Reallyyyy!'),
+    (5, 1, 'Hiiii'),
+    (6, 2, 'Agreed.'),
+    (7, 3, 'Cool'),
+    (7, 6, 'Helloooo...'),
+    (7, 6, 'Wassup!!!'),
+    (7, 6, 'Hey!'),
+    (7, 7, 'Okay'),
+    (7, 8, 'we know'),
+    (7, 9, 'boring...');
+
+
+
+select * from users;
+select * from posts;
+select * from comments;
+
+
+
+

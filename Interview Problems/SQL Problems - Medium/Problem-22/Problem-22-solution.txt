@@ -1,0 +1,16 @@
+-- SOLUTION:
+
+WITH Engagement AS (
+    SELECT p.post_id, p.user_id, p.post_date,
+           (p.likes + p.shares + COUNT(c.comment_id)) AS total_engagement
+    FROM posts p
+    LEFT JOIN comments c ON p.post_id = c.post_id
+    WHERE p.post_date >= current_date - INTERVAL '1 day'
+    GROUP BY p.post_id, p.user_id, p.post_date, p.likes, p.shares
+) 
+SELECT e.post_id, u.name AS author, e.total_engagement
+FROM Engagement e
+JOIN users u ON e.user_id = u.user_id
+WHERE e.total_engagement > (SELECT AVG(total_engagement) FROM Engagement)
+ORDER BY e.total_engagement DESC;
+

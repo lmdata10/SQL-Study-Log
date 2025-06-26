@@ -1,0 +1,7 @@
+select login_time::date, count(1) as active_students_post_30min
+from bootcamp_timing t 
+join bootcamp_attendance a on t.day = a.login_time::date
+where logout_time::time >= t.start_time + interval '30 MIN'
+and login_time::time <= t.start_time + interval '30 MIN'
+GROUP BY login_time::date;
+

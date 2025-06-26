@@ -1,0 +1,15 @@
+-- SOLUTION
+with cte as 
+    (select (cst.first_name||' '||cst.last_name) as customer
+    , ev.status as event_type
+    , listagg(distinct cmp.name, ', ') as campaign 
+    , count(1) as total
+    , rank() over (partition by status order by count(1) desc) as rnk
+    from customers cst
+    join campaigns cmp on cmp.customer_id = cst.id
+    join events ev on ev.campaign_id = cmp.id
+    group by customer, status)
+select event_type, customer, campaign, total
+from cte 
+where rnk = 1
+order by event_type desc

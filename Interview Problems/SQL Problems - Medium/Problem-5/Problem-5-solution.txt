@@ -1,0 +1,19 @@
+-- Solution
+with users as
+    (select user1 as users from facebook_friends
+    union all
+    select user2 as users from facebook_friends),
+
+    total_friends as
+    (select users, count(1) as tot_friends
+    from users
+    group by users),
+
+    total_users as
+    (select count(distinct users) as tot_users from users)
+
+select tf.users
+, round(cast(tf.tot_friends as decimal) / cast(tu.tot_users as decimal) * 100,3) as popularity_percent
+from total_friends tf
+cross join total_users tu
+order by tf.users;

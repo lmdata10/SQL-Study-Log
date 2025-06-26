@@ -1,0 +1,6 @@
+
+
+select a.val||','||b.val||','||c.val
+from input_val a 
+join input_val b on b.val <> a.val
+join input_val c on c.val <> b.val and c.val <> a.val

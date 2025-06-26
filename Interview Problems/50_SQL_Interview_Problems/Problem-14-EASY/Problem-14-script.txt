@@ -1,0 +1,12 @@
+-- Sort data as per expected putput
+
+drop table if exists words;
+create table words (word varchar(30));
+insert into words values('Mellifluous');
+insert into words values('Effervescent');
+insert into words values('Limerence');
+insert into words values('Cacophony');
+insert into words values('Diaphanous');
+
+select * from words;
+

@@ -1,0 +1,19 @@
+with unique_users as 
+        (select distinct user_id from user_hobbies),
+    user_combination as 
+        (select u1.user_id as left_user, u2.user_id as right_user
+        from unique_users u1
+        join unique_users u2 on u1.user_id < u2.user_id),
+    matched_hobbies as 
+        (select uc.*, uh1.hobby
+        from user_combination uc
+        join user_hobbies uh1 on uc.left_user = uh1.user_id
+        join user_hobbies uh2 on uc.right_user = uh2.user_id
+        where uh1.hobby = uh2.hobby)
+select uc.left_user, uc.right_user, listagg(ifnull(mh.hobby, '-'),', ') as hobby
+from user_combination uc 
+left join matched_hobbies mh on mh.left_user = uc.left_user 
+                            and mh.right_user = uc.right_user
+group by uc.left_user, uc.right_user
+order by uc.left_user, uc.right_user;
+

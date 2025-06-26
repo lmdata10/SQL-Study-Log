@@ -1,0 +1,25 @@
+-- Solution Snowflake
+	with cte as 
+	    (select value 
+	    from (select listagg(lower(feedback),' ') as feed from feedback) f ,
+	    lateral  split_to_table(f.feed, ' ') t )
+	select value, count(1)
+	from cte
+	group by value
+	order by count(1) desc;
+
+
+
+-- Solution Postgres
+	with cte as 
+			(select lower(replace(replace(replace(unnest(STRING_TO_ARRAY(FEEDBACK, ' ')), ',', ''), '!',''), '.','')) as words
+			 from feedback),
+		cte_final as		
+			(select words
+			, count(*) as repeatation_cnt
+			, rank() over(order by count(*) desc) as rnk
+			from cte
+			group by words)
+	select words, repeatation_cnt
+	from cte_final
+	where rnk=1;

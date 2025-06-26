@@ -1,0 +1,11 @@
+
+select s.subject
+from subjects s
+join (
+	select subject from sem_subjects where semester=1
+	intersect
+	select subject from sem_subjects where semester=2
+	intersect
+	select subject from sem_subjects where semester=3
+	intersect
+	select subject from sem_subjects where semester=4) x on x.subject = s.id

@@ -1,0 +1,11 @@
+-- un-group the given input data 
+
+drop table if exists road_trip_clothing;
+create table road_trip_clothing(items varchar(30), item_count int);
+insert into road_trip_clothing values('Swimsuit', 1);
+insert into road_trip_clothing values('Jacket', 1);
+insert into road_trip_clothing values('Hat', 3);
+insert into road_trip_clothing values('Shoes', 2);
+insert into road_trip_clothing values('Jeans', 2);
+
+select * from road_trip_clothing;

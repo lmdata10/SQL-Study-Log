@@ -1,0 +1,31 @@
+-- Identify the subject which is thought in each semester
+drop table if exists subjects;
+create table subjects(id int, subject varchar(50));
+insert into subjects values(1, 'Algorithmic Design');
+insert into subjects values(2, 'Digital Logic Design');
+insert into subjects values(3, 'Computing Architecture');
+insert into subjects values(4, 'Introduction to Software Engineering');
+insert into subjects values(5, 'Operating Systems');
+insert into subjects values(6, 'Mathematics');
+
+
+drop table if exists sem_subjects;
+create table sem_subjects(semester int, subject int);
+insert into sem_subjects values(1, 3);
+insert into sem_subjects values(1, 4);
+insert into sem_subjects values(1, 5);
+insert into sem_subjects values(1, 6);
+
+insert into sem_subjects values(2, 6);
+insert into sem_subjects values(2, 1);
+insert into sem_subjects values(2, 1);
+
+insert into sem_subjects values(3, 6);
+insert into sem_subjects values(3, 1);
+
+insert into sem_subjects values(4, 1);
+insert into sem_subjects values(4, 6);
+insert into sem_subjects values(4, 2);
+
+select * from subjects;
+select * from sem_subjects;

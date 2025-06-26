@@ -1,0 +1,25 @@
+-- Find how many students are still present in the bootcamp class after the first 30 mins mark each day.
+
+drop table if exists bootcamp_attendance;
+create table bootcamp_attendance(user_id int, login_time timestamp, logout_time timestamp);
+
+insert into bootcamp_attendance values(1, '2024-12-28 13:30:24'::timestamp, '2024-12-29 13:50:34'::timestamp);
+insert into bootcamp_attendance values(2, '2024-12-28 13:31:24'::timestamp, '2024-12-29 14:21:54'::timestamp);
+insert into bootcamp_attendance values(3, '2024-12-28 14:00:00'::timestamp, '2024-12-29 14:45:46'::timestamp);
+insert into bootcamp_attendance values(4, '2024-12-28 14:21:40'::timestamp, '2024-12-29 14:51:44'::timestamp);
+insert into bootcamp_attendance values(1, '2024-12-29 13:01:33'::timestamp, '2024-12-29 14:01:44'::timestamp);
+insert into bootcamp_attendance values(2, '2024-12-29 13:05:44'::timestamp, '2024-12-29 14:02:33'::timestamp);
+insert into bootcamp_attendance values(3, '2024-12-29 13:10:55'::timestamp, '2024-12-29 14:12:11'::timestamp);
+insert into bootcamp_attendance values(4, '2024-12-29 13:13:22'::timestamp, '2024-12-29 14:44:12'::timestamp);
+insert into bootcamp_attendance values(5, '2024-12-29 13:29:11'::timestamp, '2024-12-29 14:33:11'::timestamp);
+insert into bootcamp_attendance values(6, '2024-12-29 13:30:04'::timestamp, '2024-12-29 14:23:10'::timestamp);
+
+drop table if exists bootcamp_timing;
+create table bootcamp_timing(day date, start_time time, end_time time);
+insert into bootcamp_timing values('2024-12-28'::date, '13:30:00'::time, '17:30:00'::time);
+insert into bootcamp_timing values('2024-12-29'::date, '13:00:00'::time, '17:00:00'::time);
+
+select * from bootcamp_timing;
+select * from bootcamp_attendance;
+
+

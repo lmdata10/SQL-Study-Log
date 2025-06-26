@@ -1,0 +1,13 @@
+
+with cte as 
+	(select *
+	, semester - (row_number() over(partition by result order by semester)) as diff_grp
+	from student_result)
+select distinct student_id
+, concat(first_value(semester) over(partition by diff_grp order by semester) , '-'
+		,last_value(semester) over(partition by diff_grp order by semester 
+								range between unbounded preceding and unbounded following))  as semester
+, result
+, count(1) over(partition by diff_grp order by diff_grp) as consecutive_result
+from cte
+order by semester;

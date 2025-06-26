@@ -1,0 +1,8 @@
+-- Write an SQL statement that produces the expected output. 
+
+drop table if exists input_val;
+create table input_val(val varchar(1));
+insert into input_val values('T'),('F'),('Q');
+
+select * from input_val;
+

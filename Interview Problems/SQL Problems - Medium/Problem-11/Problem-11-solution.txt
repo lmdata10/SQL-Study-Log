@@ -1,0 +1,15 @@
+
+with data as
+    (select c.first_name, o.order_date
+        ,sum(o.total_order_cost) as total_cost
+    from customers c
+    join orders o on o.cust_id=c.id
+    where o.order_date between '2019-02-01' and '2019-05-01'
+    group by c.first_name, o.order_date),
+    ranked_data as
+    (select first_name, total_cost, order_date
+    , rank() over(order by total_cost desc) as rnk
+    from data)
+select first_name, total_cost, order_date
+from ranked_data
+where rnk = 1;

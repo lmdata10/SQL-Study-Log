@@ -1,0 +1,28 @@
+-- Given the list of skills from different candidates. We need to find the candidate that possesses all the required skills								
+
+drop table if exists skills;
+create table skills(employee varchar(30), skillset varchar(30));
+insert into skills values('Thomas', 'Python');
+insert into skills values('Benjamin', 'SQL');
+insert into skills values('Steve', 'SQL');
+insert into skills values('David', 'Power BI');
+insert into skills values('James', 'Tableau');
+insert into skills values('John', 'Java Script');
+insert into skills values('Nikola', 'Snowflake');
+insert into skills values('Thomas', 'SQL');
+insert into skills values('John', 'Snowflake');
+insert into skills values('Thomas', 'Power BI');
+insert into skills values('James', 'SQL');
+insert into skills values('Benjamin', 'Python');
+insert into skills values('Nikola', 'SQL');
+insert into skills values('Benjamin', 'SQL');
+
+
+drop table if exists required_skills;
+create table required_skills(skills varchar(30));
+insert into required_skills values('SQL');
+insert into required_skills values('Python');
+insert into required_skills values('Power BI');
+
+select * from required_skills;
+select * from skills;

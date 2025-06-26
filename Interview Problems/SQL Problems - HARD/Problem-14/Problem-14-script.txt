@@ -1,0 +1,24 @@
+drop table if exists weather;
+create table if not exists weather
+(
+	city varchar(30), 
+	day_1 decimal, 
+	day_2 decimal, 
+	day_3 decimal, 
+	day_4 decimal, 
+	day_5 decimal, 
+	day_6 decimal
+);
+
+insert into weather values ('Bangalore', 35, 34, 31, 32, 34, 33);
+insert into weather values ('Mumbai', 31, 31, 32, 32, 34, 36);
+insert into weather values ('Chennai', 35, 35, 36, 35, 35, 35);
+insert into weather values ('New Delhi', 30, 32, 31, 32, 33, 34);
+insert into weather values ('Jaipur', 40, 42, 42, 41, 40, 41);
+insert into weather values ('Darjeeling', 5, 2, 2, 2, 5, 5);
+insert into weather values ('Kashmir', 28, 27, 29, 28, 28, 27);
+insert into weather values ('Kolkata', 33, 35, 36, 37, 33, 35);
+insert into weather values ('Varanasi', 38, 39, 39, 38, 37, 36);
+insert into weather values ('Shimla', 21, 21, 23, 23, 24, 25);
+
+select * from weather;

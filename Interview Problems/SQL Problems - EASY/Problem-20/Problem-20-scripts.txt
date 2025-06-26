@@ -1,0 +1,17 @@
+-- Import the given "techTFQ_Feedback.csv" file to below techTFQ_feedback table.
+
+-- Analyse the feedback given for the SQL bootcamp conducted by techTFQ and display the following:
+	-- Overall ratiing (rounded off to 2 decimal points)
+	-- no of 5* rating
+	-- no of 4* rating
+	-- no of 3* rating
+	-- no of 2* rating
+	-- no of 1* rating
+
+
+drop table if exists techTFQ_feedback;
+create table techTFQ_feedback(username varchar(100), rating decimal, feedback varchar(2000));
+
+
+select * from techTFQ_feedback;
+

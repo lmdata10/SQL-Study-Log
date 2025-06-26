@@ -1,0 +1,187 @@
+-- QUESTION: Growth of Airbnb
+/* Estimate the growth of Airbnb each year using the number of hosts registered as the growth metric.
+The rate of growth is calculated by taking ((number of hosts registered in the current year - number of hosts registered in the previous year) / the number of hosts registered in the previous year) * 100.
+Output the year, number of hosts in the current year, number of hosts in the previous year, and the rate of growth. Round the rate of growth to the nearest percent and order the result in the ascending order based on the year.
+Assume that the dataset consists only of unique hosts, meaning there are no duplicate hosts listed.
+*/
+
+
+select id, price, property_type,accommodates
+,city,host_identity_verified,host_since,neighbourhood,zipcode
+from airbnb_search_details;
+
+drop table airbnb_search_details;
+create table airbnb_search_details
+(
+    id                          int,
+    price                       float,
+    property_type               varchar(50),
+    accommodates                int,
+    city                        varchar(50),
+    host_identity_verified      varchar(50),
+    host_since                  date,
+    neighbourhood               varchar(50),
+    zipcode                     int
+);
+
+insert into airbnb_search_details values(12513361,555.68,'Apartment',2,'NYC','t','2015-11-18','East Harlem',10029);
+insert into airbnb_search_details values(7196412,366.36,'Cabin',2,'LA','f','2016-09-10','Valley Glen',91606);
+insert into airbnb_search_details values(16333776,482.83,'House',2,'SF','t','2013-12-26','Richmond District',94118);
+insert into airbnb_search_details values(1786412,448.86,'Apartment',2,'NYC','t','2010-05-11','Williamsburg',11211);
+insert into airbnb_search_details values(14575777,506.89,'Villa',6,'LA','t','2015-10-22','NULL',90703);
+insert into airbnb_search_details values(20515889,720.79,'Villa',8,'LA','f','2014-05-26','Topanga',90265);
+insert into airbnb_search_details values(13783491,516.48,'Villa',2,'LA','t','2015-08-20','Hollywood Hills',90046);
+insert into airbnb_search_details values(6591755,529.33,'Villa',16,'LA','t','2016-01-16','Long Beach',90803);
+insert into airbnb_search_details values(5203241,679.68,'Villa',6,'LA','t','2017-08-17','Rancho Palos Verdes',90275);
+insert into airbnb_search_details values(11508891,633.51,'Villa',10,'LA','t','2015-08-12','Malibu',90265);
+insert into airbnb_search_details values(18823930,485.98,'Villa',6,'LA','t','2013-12-06','Harbor Gateway',90501);
+insert into airbnb_search_details values(15523281,598.9,'Villa',4,'LA','f','2014-05-20','NULL',90704);
+insert into airbnb_search_details values(19698509,741.76,'Villa',8,'LA','t','2015-01-05','NULL',90277);
+insert into airbnb_search_details values(12497464,431.75,'Apartment',2,'NYC','t','2014-01-14','Crown Heights',11238);
+insert into airbnb_search_details values(17764793,469.13,'Villa',2,'LA','t','2012-11-02','Topanga',91364);
+insert into airbnb_search_details values(11136854,485.2,'Villa',6,'LA','t','2014-08-12','Temple City',91780);
+insert into airbnb_search_details values(15754561,482.83,'Apartment',4,'NYC','f','2017-06-07','Bedford-Stuyvesant',11216);
+insert into airbnb_search_details values(4471474,313.55,'House',1,'LA','t','2013-12-20','NULL',91405);
+insert into airbnb_search_details values(13207484,368.89,'House',4,'LA','t','2016-12-05','Hollywood',90028);
+insert into airbnb_search_details values(7837072,336.73,'House',2,'LA','f','2017-07-02','NULL',91770);
+insert into airbnb_search_details values(7823396,417.44,'House',2,'NYC','f','2015-05-27','Richmond Hill',11419);
+insert into airbnb_search_details values(7966742,423.41,'House',2,'NYC','t','2012-06-27','Bedford-Stuyvesant',11221);
+insert into airbnb_search_details values(257568,389.18,'House',3,'NYC','t','2013-04-20','Astoria',11106);
+insert into airbnb_search_details values(18073864,482.83,'Apartment',4,'LA','t','2012-09-27','NULL',91302);
+insert into airbnb_search_details values(13667633,541.61,'House',5,'LA','t','2015-05-08','Westchester/Playa Del Rey',90045);
+insert into airbnb_search_details values(590903,662.01,'House',6,'LA','t','2015-03-01','Mid-Wilshire',90048);
+insert into airbnb_search_details values(19161964,391.2,'House',1,'LA','f','2016-07-14','NULL',90650);
+insert into airbnb_search_details values(19475815,470.05,'House',2,'NYC','t','2015-11-14','Astoria',11106);
+insert into airbnb_search_details values(1407841,412.71,'House',2,'LA','t','2016-05-27','Mar Vista',90066);
+insert into airbnb_search_details values(1535628,407.75,'House',2,'NYC','f','2016-03-10','Hunts Point',10474);
+insert into airbnb_search_details values(6888244,501.06,'House',2,'NYC','t','2011-03-25','Carroll Gardens',11231);
+insert into airbnb_search_details values(8889145,539.36,'House',4,'LA','t','2012-01-06','Studio City',91604);
+insert into airbnb_search_details values(15073872,474.49,'House',4,'LA','t','2013-03-06','Studio City',91604);
+insert into airbnb_search_details values(10174146,695.65,'House',9,'LA','t','2015-08-09','NULL',90048);
+insert into airbnb_search_details values(12600300,424.85,'House',4,'NYC','f','2017-05-06','Flushing',11355);
+insert into airbnb_search_details values(62427,667.83,'Villa',12,'LA','t','2011-09-28','Topanga',90290);
+insert into airbnb_search_details values(5447656,417.44,'House',2,'DC','t','2011-03-25','Logan Circle',20005);
+insert into airbnb_search_details values(2974433,529.33,'House',4,'LA','t','2011-11-28','Long Beach',90803);
+insert into airbnb_search_details values(17010314,430.41,'House',2,'LA','t','2013-03-06','NULL',91506);
+insert into airbnb_search_details values(20167264,385.01,'House',1,'Boston','t','2013-03-06','Dorchester',2125);
+insert into airbnb_search_details values(4156913,570.38,'House',6,'NYC','f','2016-05-30','The Rockaways',11509);
+insert into airbnb_search_details values(11993790,602.83,'House',7,'NYC','f','2017-05-06','Windsor Terrace',11218);
+insert into airbnb_search_details values(10989476,455.39,'House',2,'SF','t','2013-04-20','Bernal Heights',94110);
+insert into airbnb_search_details values(7939396,459.51,'Villa',6,'LA','t','2014-01-16','Long Beach',90803);
+insert into airbnb_search_details values(17840858,529.83,'House',2,'LA','f','2015-03-10','Mid-Wilshire',90048);
+insert into airbnb_search_details values(2444713,506.89,'House',2,'LA','t','2014-06-20','Echo Park',90039);
+insert into airbnb_search_details values(13276443,470.05,'House',2,'SF','t','2013-05-15','Russian Hill',94109);
+insert into airbnb_search_details values(19947454,459.51,'Apartment',2,'LA','t','2014-04-14','Westwood',90024);
+insert into airbnb_search_details values(13653016,417.44,'Other',3,'LA','f','2016-11-28','NULL',90731);
+insert into airbnb_search_details values(20942873,480.4,'Condominium',2,'LA','t','2013-09-13','Santa Monica',90405);
+insert into airbnb_search_details values(19583726,552.15,'Condominium',4,'Boston','f','2015-06-08','South Boston',2127);
+insert into airbnb_search_details values(17196103,482.83,'Apartment',4,'LA','t','2009-12-25','Marina Del Rey',90292);
+insert into airbnb_search_details values(9318115,680.13,'House',5,'LA','f','2016-06-13','Malibu',90265);
+insert into airbnb_search_details values(9937434,497.67,'Apartment',2,'LA','t','2016-03-23','Hermosa Beach',90254);
+insert into airbnb_search_details values(4454031,685.65,'House',6,'LA','t','2014-10-08','NULL',90266);
+insert into airbnb_search_details values(16259866,361.09,'House',2,'NYC','f','2016-01-11','East New York',11208);
+insert into airbnb_search_details values(20282225,507.52,'Apartment',2,'Boston','f','2014-07-14','Dorchester',2125);
+insert into airbnb_search_details values(23269,519.3,'Condominium',6,'LA','t','2015-11-29','NULL',90802);
+insert into airbnb_search_details values(7637363,661.87,'House',8,'LA','t','2014-01-12','Manhattan Beach',90266);
+insert into airbnb_search_details values(6391342,417.44,'House',2,'LA','f','2014-06-24','Westlake',90005);
+insert into airbnb_search_details values(11606802,455.39,'House',5,'LA','t','2016-06-22','Westlake',90015);
+insert into airbnb_search_details values(12289125,486.75,'House',6,'LA','t','2014-02-02','Westlake',90057);
+insert into airbnb_search_details values(19875244,630.99,'Condominium',6,'Chicago','t','2010-09-27','Lakeview',60657);
+insert into airbnb_search_details values(392794,270.81,'House',4,'LA','t','2016-03-27','Westlake',90006);
+insert into airbnb_search_details values(992786,474.49,'Apartment',2,'NYC','t','2012-02-04','Harlem',10035);
+insert into airbnb_search_details values(13650177,438.2,'Apartment',2,'NYC','t','2015-07-04','Harlem',10030);
+insert into airbnb_search_details values(5792141,486.75,'Apartment',4,'NYC','t','2010-12-03','Harlem',10027);
+insert into airbnb_search_details values(6390069,570.38,'Apartment',4,'NYC','t','2011-01-17','Harlem',10027);
+insert into airbnb_search_details values(8579757,501.06,'Condominium',5,'NYC','f','2017-01-05','Harlem',10039);
+insert into airbnb_search_details values(14115855,448.86,'Apartment',2,'NYC','f','2013-08-10','Harlem',10031);
+insert into airbnb_search_details values(685364,478.75,'Apartment',3,'NYC','t','2012-05-12','Harlem',10035);
+insert into airbnb_search_details values(20031027,409.43,'Apartment',2,'NYC','f','2014-12-16','Harlem',10030);
+insert into airbnb_search_details values(2399406,389.18,'Apartment',2,'NYC','f','2016-02-28','Harlem',10030);
+insert into airbnb_search_details values(15991936,551.75,'Apartment',4,'NYC','t','2013-09-20','Harlem',10027);
+insert into airbnb_search_details values(17497415,404.31,'Apartment',2,'NYC','t','2016-10-08','Harlem',10027);
+insert into airbnb_search_details values(5321538,674.52,'Townhouse',8,'NYC','f','2013-09-13','Harlem',10027);
+insert into airbnb_search_details values(6228461,409.43,'Apartment',2,'NYC','t','2013-03-19','Harlem',10030);
+insert into airbnb_search_details values(12954602,465.4,'Loft',3,'LA','f','2015-11-14','Westside',90064);
+insert into airbnb_search_details values(15409556,355.53,'House',2,'LA','t','2015-12-14','Hawthorne',90250);
+insert into airbnb_search_details values(14057888,494.16,'Apartment',4,'NYC','t','2013-05-20','Harlem',10037);
+insert into airbnb_search_details values(21005590,444.27,'Apartment',3,'NYC','t','2016-03-20','Harlem',10039);
+insert into airbnb_search_details values(4698479,510.59,'Apartment',2,'NYC','t','2015-12-10','Harlem',10026);
+insert into airbnb_search_details values(6661783,448.86,'Apartment',2,'NYC','t','2014-04-26','Harlem',10027);
+insert into airbnb_search_details values(2243670,519.3,'Apartment',3,'NYC','t','2013-03-05','Harlem',10027);
+insert into airbnb_search_details values(5059214,431.75,'Apartment',1,'NYC','f','2014-03-14','Harlem',10030);
+insert into airbnb_search_details values(16354537,478.75,'Apartment',2,'NYC','t','2013-12-21','Harlem',10027);
+insert into airbnb_search_details values(20556938,438.2,'Apartment',2,'NYC','f','2016-04-12','Harlem',10029);
+insert into airbnb_search_details values(10165064,431.75,'Apartment',3,'NYC','t','2016-11-02','Harlem',10039);
+insert into airbnb_search_details values(7359527,434.38,'Apartment',2,'NYC','f','2015-04-08','Harlem',10030);
+insert into airbnb_search_details values(4902799,621.26,'Apartment',4,'NYC','t','2011-12-23','Harlem',10026);
+insert into airbnb_search_details values(20976767,431.75,'Apartment',2,'NYC','t','2013-03-19','Harlem',10026);
+insert into airbnb_search_details values(10869168,552.15,'Apartment',7,'NYC','f','2013-01-01','Harlem',10027);
+insert into airbnb_search_details values(7591555,424.85,'Apartment',2,'NYC','f','2013-06-02','Harlem',10039);
+insert into airbnb_search_details values(15454112,459.51,'House',2,'NYC','t','2014-06-30','Harlem',10030);
+insert into airbnb_search_details values(16662334,400.73,'House',2,'LA','t','2014-09-20','Gardena',90249);
+insert into airbnb_search_details values(19118005,552.15,'Apartment',2,'NYC','t','2009-11-12','Alphabet City',10009);
+insert into airbnb_search_details values(11972209,548.06,'Apartment',7,'NYC','t','2014-01-29','East Harlem',10029);
+insert into airbnb_search_details values(8284881,621.46,'House',8,'LA','f','2016-11-01','Pacific Palisades',90272);
+insert into airbnb_search_details values(14276565,486.75,'Apartment',4,'NYC','t','2014-01-22','Harlem',10027);
+insert into airbnb_search_details values(10923708,340.12,'Apartment',1,'NYC','t','2014-06-30','Harlem',10031);
+insert into airbnb_search_details values(1998513,438.2,'Apartment',2,'NYC','t','2013-12-21','Harlem',10027);
+insert into airbnb_search_details values(18211034,449.98,'Apartment',2,'NYC','f','2016-01-07','Harlem',10030);
+insert into airbnb_search_details values(13041230,431.75,'Apartment',3,'NYC','t','2013-12-21','Harlem',10027);
+insert into airbnb_search_details values(8256789,552.15,'Apartment',4,'NYC','t','2015-10-02','Harlem',10027);
+insert into airbnb_search_details values(7347593,504.34,'House',4,'NYC','t','2013-12-11','Harlem',10037);
+insert into airbnb_search_details values(17009057,552.15,'House',4,'SF','t','2014-02-23','Bernal Heights',94110);
+insert into airbnb_search_details values(18333003,570.04,'Apartment',4,'Chicago','f','2015-06-30','Loop',60606);
+insert into airbnb_search_details values(16274069,482.83,'Apartment',4,'NYC','f','2014-02-11','Bedford-Stuyvesant',11216);
+insert into airbnb_search_details values(20049857,474.49,'Apartment',2,'LA','f','2017-10-07','West Hollywood',90046);
+insert into airbnb_search_details values(18157879,570.38,'House',7,'Chicago','t','2016-01-20','Lincoln Park',60614);
+insert into airbnb_search_details values(17666136,538.91,'Apartment',4,'NYC','f','2014-11-17','East Village',10003);
+insert into airbnb_search_details values(2135314,519.3,'Loft',2,'NYC','f','2015-07-09','East Village',10003);
+insert into airbnb_search_details values(5321584,717.01,'House',8,'SF','t','2014-09-20','Hayes Valley',94102);
+insert into airbnb_search_details values(13121821,501.06,'Apartment',1,'NYC','f','2014-09-20','Park Slope',11215);
+insert into airbnb_search_details values(12282255,449.98,'Apartment',3,'NYC','t','2015-04-23','Harlem',10030);
+insert into airbnb_search_details values(6630775,504.34,'Apartment',4,'NYC','t','2014-06-30','Harlem',10030);
+insert into airbnb_search_details values(9479348,598.9,'Apartment',7,'NYC','f','2017-07-03','Hell''s Kitchen',10036);
+insert into airbnb_search_details values(3710477,674.52,'House',14,'NYC','f','2017-10-07','Astoria',11103);
+insert into airbnb_search_details values(13978228,578.38,'House',4,'LA','t','2015-08-05','Mount Washington',90065);
+insert into airbnb_search_details values(16028615,487.52,'Apartment',4,'Chicago','t','2016-09-02','Loop',60605);
+insert into airbnb_search_details values(15027031,548.06,'Apartment',3,'NYC','t','2014-09-20','Alphabet City',10009);
+insert into airbnb_search_details values(19245819,424.85,'Apartment',1,'SF','t','2010-03-16','Mission District',94110);
+insert into airbnb_search_details values(10770929,561.68,'Apartment',8,'NYC','t','2014-06-30','Harlem',10026);
+insert into airbnb_search_details values(12592005,524.7,'Apartment',4,'NYC','f','2017-07-06','Harlem',10039);
+insert into airbnb_search_details values(1174876,424.85,'House',2,'NYC','t','2015-06-10','Harlem',10027);
+insert into airbnb_search_details values(20888646,423.41,'House',2,'LA','f','2016-11-20','Canoga Park',91303);
+insert into airbnb_search_details values(7834158,599.15,'Villa',10,'LA','t','2014-08-21','Redondo Beach',90278);
+insert into airbnb_search_details values(6692191,423.41,'House',1,'LA','t','2013-09-13','Westlake',90015);
+insert into airbnb_search_details values(8084290,497.67,'Condominium',4,'NYC','t','2012-05-09','Harlem',10027);
+insert into airbnb_search_details values(6689195,433.07,'Apartment',4,'LA','t','2013-05-30','Burbank',91504);
+insert into airbnb_search_details values(11157369,409.43,'Apartment',1,'NYC','t','2014-06-30','Harlem',10026);
+insert into airbnb_search_details values(15705947,478.75,'Apartment',4,'NYC','f','2015-07-09','Upper East Side',10065);
+insert into airbnb_search_details values(11456592,529.83,'Loft',2,'NYC','f','2011-02-23','Williamsburg',11211);
+insert into airbnb_search_details values(1077375,400.73,'Apartment',1,'NYC','t','2015-04-04','Sunset Park',11220);
+insert into airbnb_search_details values(17681277,529.83,'Apartment',2,'LA','t','2011-04-07','Echo Park',90026);
+insert into airbnb_search_details values(10842610,519.3,'Apartment',6,'NYC','t','2012-07-07','The Rockaways',11692);
+insert into airbnb_search_details values(8881130,448.86,'House',2,'LA','t','2011-03-25','Woodland Hills/Warner Center',91364);
+insert into airbnb_search_details values(14236545,490.53,'Apartment',2,'Boston','t','2014-12-23','Dorchester',2125);
+insert into airbnb_search_details values(14219018,444.27,'Apartment',2,'NYC','t','2013-06-07','Harlem',10027);
+insert into airbnb_search_details values(8596057,420.47,'House',1,'LA','f','2016-04-20','NULL',91748);
+insert into airbnb_search_details values(11525500,478.75,'Apartment',2,'NYC','f','2017-10-07','Williamsburg',11206);
+insert into airbnb_search_details values(533884,662.01,'Apartment',6,'SF','f','2016-01-20','Cow Hollow',94123);
+insert into airbnb_search_details values(3585452,380.67,'House',1,'LA','t','2015-03-06','Reseda',91335);
+insert into airbnb_search_details values(14320263,321.89,'House',1,'LA','f','2016-03-27','Westlake',90005);
+insert into airbnb_search_details values(11399852,424.85,'House',2,'NYC','t','2015-06-10','Harlem',10027);
+insert into airbnb_search_details values(12386097,366.36,'Apartment',1,'NYC','t','2015-10-02','Harlem',10027);
+insert into airbnb_search_details values(1404510,534.71,'Townhouse',6,'LA','t','2015-09-02','West Los Angeles',90025);
+insert into airbnb_search_details values(4691130,444.27,'House',2,'LA','t','2013-10-28','NULL',91324);
+insert into airbnb_search_details values(16449480,468.21,'Apartment',2,'NYC','f','2012-03-26','East Harlem',10029);
+insert into airbnb_search_details values(15149374,444.27,'Bungalow',3,'LA','t','2012-08-17','Venice',90291);
+insert into airbnb_search_details values(10089727,594.02,'Villa',6,'LA','f','2015-06-06','NULL',90265);
+insert into airbnb_search_details values(3323232,460.52,'Condominium',2,'NYC','f','2015-10-02','Harlem',10039);
+insert into airbnb_search_details values(20899396,470.05,'Apartment',4,'NYC','t','2013-12-21','Harlem',10030);
+insert into airbnb_search_details values(3380585,436.94,'Apartment',2,'NYC','f','2014-06-30','Harlem',10027);
+insert into airbnb_search_details values(16073836,431.75,'House',2,'LA','f','2016-09-02','Culver City',90232);
+insert into airbnb_search_details values(20257960,478.75,'House',2,'LA','t','2013-03-06','Mid-Wilshire',90035);
+insert into airbnb_search_details values(4559312,510.59,'Apartment',4,'NYC','t','2013-03-06','Harlem',10026);
+insert into airbnb_search_details values(2165604,368.89,'Apartment',2,'NYC','t','2016-03-14','Harlem',10039);
+insert into airbnb_search_details values(18385413,409.43,'Apartment',2,'NYC','f','2014-06-04','Harlem',10030);
+insert into airbnb_search_details values(9470528,477.91,'Apartment',2,'NYC','t','2015-10-02','Harlem',10027);
+commit;

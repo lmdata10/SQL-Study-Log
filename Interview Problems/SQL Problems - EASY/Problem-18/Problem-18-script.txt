@@ -1,0 +1,22 @@
+-- Identify the devices used by each student.
+drop table if exists devices;
+create table devices(id int, device varchar(20));
+insert into devices values(1, 'Desktop');
+insert into devices values(2, 'Tablet');
+insert into devices values(3, 'Phone');
+
+drop table if exists student_devices;
+create table student_devices(student_id int, device_id int, logged_in date);
+insert into student_devices values(1, 1, '2024-10-12'::date);
+insert into student_devices values(2, 2, '2024-10-12'::date);
+insert into student_devices values(3, 3, '2024-10-12'::date);
+insert into student_devices values(4, 1, '2024-10-12'::date);
+insert into student_devices values(1, 2, '2024-10-13'::date);
+insert into student_devices values(2, 2, '2024-10-13'::date);
+insert into student_devices values(2, 1, '2024-10-14'::date);
+insert into student_devices values(2, 3, '2024-10-15'::date);
+insert into student_devices values(3, 1, '2024-10-13'::date);
+
+select * from devices;
+select * from student_devices;
+

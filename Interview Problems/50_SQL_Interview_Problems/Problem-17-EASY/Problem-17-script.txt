@@ -1,0 +1,19 @@
+drop table if exists cust_names;
+create table cust_names
+(
+	first_name		varchar(40),
+	middle_name		varchar(40),
+	last_name		varchar(40)
+);
+insert into cust_names values('Denver', null, 'Hess');
+insert into cust_names values('Yasmin', null, null);
+insert into cust_names values(null, null, null);
+insert into cust_names values('Kyle', 'Francis', 'Recardo');
+insert into cust_names values('Alia', 'Bhat', null);
+insert into cust_names values(null, '', '');
+insert into cust_names values(null, null, 'Nelson');
+insert into cust_names values(null, null, null);
+
+select * from cust_names;
+
+

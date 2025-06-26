@@ -1,0 +1,244 @@
+-- Problem statement: Identify the highest salary each employee made for each year. Represent each year salary in seperate columns.
+
+
+
+drop table sf_public_salaries;
+create table sf_public_salaries
+(
+    id              int,
+    employeename    varchar(100),
+    year            int,
+    totalpay        float,
+    jobtitle        varchar(100)
+);
+insert into sf_public_salaries (id,employeename,year,totalpay,jobtitle) values (120566  ,'Teresa L Cavanaugh',2014,    105207.29 ,'EMT/Paramedic/Firefighter');
+insert into sf_public_salaries (id,employeename,year,totalpay,jobtitle) values (72002   ,'Ray Torres',2012,    1121.28   ,'Public Service Trainee');
+insert into sf_public_salaries (id,employeename,year,totalpay,jobtitle) values (122662  ,'Rizaldy T Tabada',2014,    95445.89  ,'Deputy Sheriff');
+insert into sf_public_salaries (id,employeename,year,totalpay,jobtitle) values (140133  ,'Gregory B Bovo',2014,    23757.5   ,'Firefighter');
+insert into sf_public_salaries (id,employeename,year,totalpay,jobtitle) values (87502   ,'Jason L Landivar',2013,    88002.74  ,'EMT/Paramedic/Firefighter');
+insert into sf_public_salaries (id,employeename,year,totalpay,jobtitle) values (71770   ,'Fernando Barajas',2012,    1585.6    ,'Public Svc Aide-Public Works');
+insert into sf_public_salaries (id,employeename,year,totalpay,jobtitle) values (144682  ,'George Fudge',2014,    5461.57   ,'Transit Operator');
+insert into sf_public_salaries (id,employeename,year,totalpay,jobtitle) values (148136  ,'Jose F Granados',2014,    661.2     ,'Public Svc Aide-Public Works');
+insert into sf_public_salaries (id,employeename,year,totalpay,jobtitle) values (72175   ,'Linda Pizzorno',2012,    795.01    ,'Registered Nurse');
+insert into sf_public_salaries (id,employeename,year,totalpay,jobtitle) values (110316  ,'Sophia  Wu',2013,    295.41    ,'Public Service Trainee');
+insert into sf_public_salaries (id,employeename,year,totalpay,jobtitle) values (110441  ,'Maria E Zuniga',2013,    114.54    ,'Transit Operator');
+insert into sf_public_salaries (id,employeename,year,totalpay,jobtitle) values (57726   ,'Sara Paredes',2012,    66036.57  ,'Registered Nurse');
+insert into sf_public_salaries (id,employeename,year,totalpay,jobtitle) values (135711  ,'Adina M Diamond',2014,    58496.19  ,'Registered Nurse');
+insert into sf_public_salaries (id,employeename,year,totalpay,jobtitle) values (139629  ,'Terry L Johnson',2014,    25534.98  ,'Transit Operator');
+insert into sf_public_salaries (id,employeename,year,totalpay,jobtitle) values (64401   ,'Sherry Mahoney',2012,    31981.7   ,'EMT/Paramedic/Firefighter');
+insert into sf_public_salaries (id,employeename,year,totalpay,jobtitle) values (148022  ,'Kari A Johnson',2014,    688.71    ,'Firefighter');
+insert into sf_public_salaries (id,employeename,year,totalpay,jobtitle) values (114356  ,'Joseph M Salazar',2014,    146448.22 ,'Sergeant 3');
+insert into sf_public_salaries (id,employeename,year,totalpay,jobtitle) values (104037  ,'Annette  Kess',2013,    11808     ,'Transit Operator');
+insert into sf_public_salaries (id,employeename,year,totalpay,jobtitle) values (71779   ,'Ayala Mirande',2012,    1354.22   ,'Special Nurse');
+insert into sf_public_salaries (id,employeename,year,totalpay,jobtitle) values (143075  ,'George L Abrams Jr',2014,    8970.15   ,'Transit Operator');
+insert into sf_public_salaries (id,employeename,year,totalpay,jobtitle) values (64411   ,'Seaborn Chiles',2012,    31756.92  ,'EMT/Paramedic/Firefighter');
+insert into sf_public_salaries (id,employeename,year,totalpay,jobtitle) values (69659   ,'Gwen Ferdinand',2012,    4944.94   ,'Transit Operator');
+insert into sf_public_salaries (id,employeename,year,totalpay,jobtitle) values (144573  ,'Robert E Lee Jr',2014,    5657.26   ,'Transit Operator');
+insert into sf_public_salaries (id,employeename,year,totalpay,jobtitle) values (72720   ,'Andre Thomas',2012,    158.29    ,'Public Svc Aide-Public Works');
+insert into sf_public_salaries (id,employeename,year,totalpay,jobtitle) values (60447   ,'James Lockhart',2012,    62643.37  ,'EMT/Paramedic/Firefighter');
+insert into sf_public_salaries (id,employeename,year,totalpay,jobtitle) values (148014  ,'Eric J Chen',2014,    835.79    ,'Public Service Trainee');
+insert into sf_public_salaries (id,employeename,year,totalpay,jobtitle) values (109041  ,'Paul J Ortiz',2013,    2012.15   ,'Special Nurse');
+insert into sf_public_salaries (id,employeename,year,totalpay,jobtitle) values (142145  ,'Victor N Yeung',2014,    11889.93  ,'Transit Operator');
+insert into sf_public_salaries (id,employeename,year,totalpay,jobtitle) values (39463   ,'Steven Stocker',2012,    149956.09 ,'Sergeant 3');
+insert into sf_public_salaries (id,employeename,year,totalpay,jobtitle) values (46861   ,'Theresa Courtney',2012,    99050.18  ,'Deputy Sheriff');
+insert into sf_public_salaries (id,employeename,year,totalpay,jobtitle) values (83706   ,'Donald V Ortiz',2013,    101971.39 ,'Deputy Sheriff');
+insert into sf_public_salaries (id,employeename,year,totalpay,jobtitle) values (108749  ,'Vivian A Showers',2013,    2056.09   ,'Transit Operator');
+insert into sf_public_salaries (id,employeename,year,totalpay,jobtitle) values (108321  ,'Lenora  Hamilton',2013,    2529.28   ,'Transit Operator');
+insert into sf_public_salaries (id,employeename,year,totalpay,jobtitle) values (125043  ,'Ryan J Jamison',2014,    86331.29  ,'EMT/Paramedic/Firefighter');
+insert into sf_public_salaries (id,employeename,year,totalpay,jobtitle) values (102647  ,'Alvin  Sosa',2013,    20276.44  ,'Transit Operator');
+insert into sf_public_salaries (id,employeename,year,totalpay,jobtitle) values (71309   ,'Ernanie Rasquero',2012,    1892.86   ,'Special Nurse');
+insert into sf_public_salaries (id,employeename,year,totalpay,jobtitle) values (144513  ,'Ben D Malone',2014,    8485.23   ,'Transit Operator');
+insert into sf_public_salaries (id,employeename,year,totalpay,jobtitle) values (67873   ,'Niem Tran',2012,    9188.62   ,'Transit Operator');
+insert into sf_public_salaries (id,employeename,year,totalpay,jobtitle) values (66561   ,'Nicole Freeney',2012,    15932.5   ,'Transit Operator');
+insert into sf_public_salaries (id,employeename,year,totalpay,jobtitle) values (47109   ,'Stephen Kendall',2012,    97676.68  ,'Deputy Sheriff');
+insert into sf_public_salaries (id,employeename,year,totalpay,jobtitle) values (109107  ,'Elizabeth J Dayrit',2013,    1962.33   ,'Special Nurse');
+insert into sf_public_salaries (id,employeename,year,totalpay,jobtitle) values (125930  ,'Andrew G Chen',2014,    82052.03  ,'Estate Investigator');
+insert into sf_public_salaries (id,employeename,year,totalpay,jobtitle) values (143254  ,'Larry J Davis',2014,    12617.73  ,'Transit Operator');
+insert into sf_public_salaries (id,employeename,year,totalpay,jobtitle) values (39456   ,'Melonee Alvarez',2012,    148365.27 ,'Sergeant 3');
+insert into sf_public_salaries (id,employeename,year,totalpay,jobtitle) values (102938  ,'Pelzie L Smith',2013,    18174.36  ,'Transit Operator');
+insert into sf_public_salaries (id,employeename,year,totalpay,jobtitle) values (56967   ,'Denise Alexander',2012,    61850.57  ,'Estate Investigator');
+insert into sf_public_salaries (id,employeename,year,totalpay,jobtitle) values (71790   ,'David Fleming',2012,    1357.9    ,'Special Nurse');
+insert into sf_public_salaries (id,employeename,year,totalpay,jobtitle) values (105663  ,'Brian E Oconnor',2013,    11175.91  ,'Deputy Sheriff');
+insert into sf_public_salaries (id,employeename,year,totalpay,jobtitle) values (109201  ,'Jesus J Aromin',2013,    2123.47   ,'Public Svc Aide-Public Works');
+insert into sf_public_salaries (id,employeename,year,totalpay,jobtitle) values (68610   ,'Liane Angus',2012,    9456.38   ,'Registered Nurse');
+insert into sf_public_salaries (id,employeename,year,totalpay,jobtitle) values (147868  ,'Alma Rosa Garcia',2014,    877.77    ,'Special Nurse');
+insert into sf_public_salaries (id,employeename,year,totalpay,jobtitle) values (106739  ,'Joann G Siobal',2013,    0         ,'Registered Nurse');
+insert into sf_public_salaries (id,employeename,year,totalpay,jobtitle) values (122121  ,'Michael Mason',2014,    98106.53  ,'EMT/Paramedic/Firefighter');
+insert into sf_public_salaries (id,employeename,year,totalpay,jobtitle) values (72890   ,'Grace Salud',2012,    37.36     ,'Special Nurse');
+insert into sf_public_salaries (id,employeename,year,totalpay,jobtitle) values (135574  ,'Raffaella V Wilson',2014,    61208.29  ,'Registered Nurse');
+insert into sf_public_salaries (id,employeename,year,totalpay,jobtitle) values (120935  ,'Lance A Obtinalla Jr',2014,    102504.84 ,'Deputy Sheriff');
+insert into sf_public_salaries (id,employeename,year,totalpay,jobtitle) values (140150  ,'Ryan C Crow',2014,    23757.5   ,'Firefighter');
+insert into sf_public_salaries (id,employeename,year,totalpay,jobtitle) values (106686  ,'Tracy Y Higgins',2013,    0         ,'Transit Operator');
+insert into sf_public_salaries (id,employeename,year,totalpay,jobtitle) values (120469  ,'Alexander M Lamond',2014,    106319.44 ,'EMT/Paramedic/Firefighter');
+insert into sf_public_salaries (id,employeename,year,totalpay,jobtitle) values (147667  ,'Justina Dizon',2014,    1153.95   ,'Special Nurse');
+insert into sf_public_salaries (id,employeename,year,totalpay,jobtitle) values (103394  ,'Daniel Phillip Boutote',2013,    19910.4   ,'Eligibility Worker');
+insert into sf_public_salaries (id,employeename,year,totalpay,jobtitle) values (147540  ,'Ivan Y Castillo',2014,    1597.9    ,'Public Svc Aide-Public Works');
+insert into sf_public_salaries (id,employeename,year,totalpay,jobtitle) values (105493  ,'Willie  Daigle Jr',2013,    7551.96   ,'Transit Operator');
+insert into sf_public_salaries (id,employeename,year,totalpay,jobtitle) values (66543   ,'Margarita Herrera',2012,    18074.53  ,'Registered Nurse');
+insert into sf_public_salaries (id,employeename,year,totalpay,jobtitle) values (147284  ,'Alan K Tolbert',2014,    2070.29   ,'Public Svc Aide-Public Works');
+insert into sf_public_salaries (id,employeename,year,totalpay,jobtitle) values (76558   ,'Kathryn  Waaland',2013,    149202.6  ,'Sergeant 3');
+insert into sf_public_salaries (id,employeename,year,totalpay,jobtitle) values (143223  ,'Luana D Beavers-Deloach',2014,    8502.03   ,'Transit Operator');
+insert into sf_public_salaries (id,employeename,year,totalpay,jobtitle) values (143124  ,'Marie E Monsen',2014,    8796.6    ,'Transit Operator');
+insert into sf_public_salaries (id,employeename,year,totalpay,jobtitle) values (71858   ,'Arnitial Donely',2012,    1506.55   ,'Public Svc Aide-Public Works');
+insert into sf_public_salaries (id,employeename,year,totalpay,jobtitle) values (63919   ,'Christopher Wilcox',2012,    39194.4   ,'Registered Nurse');
+insert into sf_public_salaries (id,employeename,year,totalpay,jobtitle) values (106654  ,'Ira  Newman',2013,    115.72    ,'Transit Operator');
+insert into sf_public_salaries (id,employeename,year,totalpay,jobtitle) values (70958   ,'Mandisa Mabrey',2012,    3285.99   ,'Eligibility Worker');
+insert into sf_public_salaries (id,employeename,year,totalpay,jobtitle) values (72067   ,'Juliet Palarca',2012,    981.72    ,'Special Nurse');
+insert into sf_public_salaries (id,employeename,year,totalpay,jobtitle) values (46086   ,'Arnel Maracha',2012,    100822.42 ,'Deputy Sheriff');
+insert into sf_public_salaries (id,employeename,year,totalpay,jobtitle) values (147504  ,'Jamie J Dwyer',2014,    1348.55   ,'Special Nurse');
+insert into sf_public_salaries (id,employeename,year,totalpay,jobtitle) values (69902   ,'Jacquelyn Vassar',2012,    4312.42   ,'Transit Operator');
+insert into sf_public_salaries (id,employeename,year,totalpay,jobtitle) values (135122  ,'Melinda Wong',2014,    53190.53  ,'Junior Administrative Analyst');
+insert into sf_public_salaries (id,employeename,year,totalpay,jobtitle) values (122772  ,'Graham P Hoffman',2014,    96651.14  ,'EMT/Paramedic/Firefighter');
+insert into sf_public_salaries (id,employeename,year,totalpay,jobtitle) values (71420   ,'Kevin Clark',2012,    2337.75   ,'Public Svc Aide-Public Works');
+insert into sf_public_salaries (id,employeename,year,totalpay,jobtitle) values (109069  ,'Antionette L Riley',2013,    2396.21   ,'Public Svc Aide-Public Works');
+insert into sf_public_salaries (id,employeename,year,totalpay,jobtitle) values (141349  ,'Audrey Ngo',2014,    18885.86  ,'Registered Nurse');
+insert into sf_public_salaries (id,employeename,year,totalpay,jobtitle) values (68980   ,'Robert Martinez',2012,    9228.64   ,'Registered Nurse');
+insert into sf_public_salaries (id,employeename,year,totalpay,jobtitle) values (148626  ,'Renato C Gurion',2014,    6         ,'Registered Nurse');
+insert into sf_public_salaries (id,employeename,year,totalpay,jobtitle) values (39539   ,'Omar Bueno',2012,    148237.4  ,'Sergeant 3');
+insert into sf_public_salaries (id,employeename,year,totalpay,jobtitle) values (106805  ,'Georgina M Pineda',2013,    0         ,'Transit Operator');
+insert into sf_public_salaries (id,employeename,year,totalpay,jobtitle) values (140237  ,'Beverly Bagdorf',2014,    27270.72  ,'Registered Nurse');
+insert into sf_public_salaries (id,employeename,year,totalpay,jobtitle) values (141997  ,'Emmanuel R Borja',2014,    12027.91  ,'Transit Operator');
+insert into sf_public_salaries (id,employeename,year,totalpay,jobtitle) values (110465  ,'Vanessa E Almaguer',2013,    72.98     ,'Special Nurse');
+insert into sf_public_salaries (id,employeename,year,totalpay,jobtitle) values (64823   ,'Lilly Fung',2012,    28586.7   ,'Registered Nurse');
+insert into sf_public_salaries (id,employeename,year,totalpay,jobtitle) values (65683   ,'Mo Ching Wan',2012,    22650     ,'Registered Nurse');
+insert into sf_public_salaries (id,employeename,year,totalpay,jobtitle) values (107962  ,'Leanne Abrigo  Johnson',2013,    4015      ,'Registered Nurse');
+insert into sf_public_salaries (id,employeename,year,totalpay,jobtitle) values (141206  ,'Wallina C Pellette',2014,    19559.26  ,'Transit Operator');
+insert into sf_public_salaries (id,employeename,year,totalpay,jobtitle) values (101991  ,'Tretha T Stroughter',2013,    28182.36  ,'Eligibility Worker');
+insert into sf_public_salaries (id,employeename,year,totalpay,jobtitle) values (109207  ,'Yolanda  Ramirez',2013,    1745.66   ,'Special Nurse');
+insert into sf_public_salaries (id,employeename,year,totalpay,jobtitle) values (48994   ,'Sarah Silva',2012,    89799.67  ,'Deputy Sheriff');
+insert into sf_public_salaries (id,employeename,year,totalpay,jobtitle) values (143534  ,'Monique C Jacobs',2014,    7781.96   ,'Transit Operator');
+insert into sf_public_salaries (id,employeename,year,totalpay,jobtitle) values (102585  ,'Arturo  Galarza',2013,    24288.01  ,'Eligibility Worker');
+insert into sf_public_salaries (id,employeename,year,totalpay,jobtitle) values (71498   ,'Willie Collins',2012,    2173.87   ,'Public Svc Aide-Public Works');
+insert into sf_public_salaries (id,employeename,year,totalpay,jobtitle) values (133757  ,'Kathryn L Fowler',2014,    63902.4   ,'Registered Nurse');
+insert into sf_public_salaries (id,employeename,year,totalpay,jobtitle) values (72151   ,'Jack O''Sullivan',2012,    1001.41   ,'Public Service Trainee');
+insert into sf_public_salaries (id,employeename,year,totalpay,jobtitle) values (113634  ,'Mark F Obrochta',2014,    152848.56 ,'Sergeant 3');
+insert into sf_public_salaries (id,employeename,year,totalpay,jobtitle) values (46516   ,'Petra Hahn',2012,    102369.64 ,'Deputy Sheriff');
+insert into sf_public_salaries (id,employeename,year,totalpay,jobtitle) values (121337  ,'Yvette R Gay',2014,    100778.48 ,'Deputy Sheriff');
+insert into sf_public_salaries (id,employeename,year,totalpay,jobtitle) values (144559  ,'Jarrett L Louie',2014,    5706.35   ,'Transit Operator');
+insert into sf_public_salaries (id,employeename,year,totalpay,jobtitle) values (64262   ,'Emily Anderson',2012,    33484.42  ,'EMT/Paramedic/Firefighter');
+insert into sf_public_salaries (id,employeename,year,totalpay,jobtitle) values (147049  ,'Darryl L Armstrong',2014,    1934.15   ,'Transit Operator');
+insert into sf_public_salaries (id,employeename,year,totalpay,jobtitle) values (109290  ,'Claire M Leflore',2013,    1994      ,'Eligibility Worker');
+insert into sf_public_salaries (id,employeename,year,totalpay,jobtitle) values (102042  ,'Mary R Carr',2013,    26981.02  ,'Eligibility Worker');
+insert into sf_public_salaries (id,employeename,year,totalpay,jobtitle) values (71488   ,'Maiza Padilla',2012,    1871.39   ,'Public Svc Aide-Public Works');
+insert into sf_public_salaries (id,employeename,year,totalpay,jobtitle) values (72135   ,'Joannie Keys',2012,    595.12    ,'Transit Operator');
+insert into sf_public_salaries (id,employeename,year,totalpay,jobtitle) values (109293  ,'Orlando M Gonzalez',2013,    1987.09   ,'Public Svc Aide-Public Works');
+insert into sf_public_salaries (id,employeename,year,totalpay,jobtitle) values (100543  ,'Kenia C Coronado',2013,    39666.28  ,'Eligibility Worker');
+insert into sf_public_salaries (id,employeename,year,totalpay,jobtitle) values (145535  ,'Wing C Kwan',2014,    3421.96   ,'Transit Operator');
+insert into sf_public_salaries (id,employeename,year,totalpay,jobtitle) values (97613   ,'Natalia Y Castillo Villegas',2013,    56813.75  ,'Junior Administrative Analyst');
+insert into sf_public_salaries (id,employeename,year,totalpay,jobtitle) values (48079   ,'Ceasar Garcia',2012,    92412.24  ,'Deputy Sheriff');
+insert into sf_public_salaries (id,employeename,year,totalpay,jobtitle) values (148357  ,'Darrel A Lachapelle',2014,    320       ,'Public Service Trainee');
+insert into sf_public_salaries (id,employeename,year,totalpay,jobtitle) values (71849   ,'Shickola Ricks',2012,    1508.8    ,'Eligibility Worker');
+insert into sf_public_salaries (id,employeename,year,totalpay,jobtitle) values (65793   ,'Linda Edwards',2012,    18705.79  ,'Transit Operator');
+insert into sf_public_salaries (id,employeename,year,totalpay,jobtitle) values (72341   ,'Reuben Reyes',2012,    568.58    ,'Special Nurse');
+insert into sf_public_salaries (id,employeename,year,totalpay,jobtitle) values (65175   ,'Barry Hyun',2012,    22931.02  ,'Eligibility Worker');
+insert into sf_public_salaries (id,employeename,year,totalpay,jobtitle) values (145323  ,'Heather E Gutierres',2014,    6276.49   ,'Eligibility Worker');
+insert into sf_public_salaries (id,employeename,year,totalpay,jobtitle) values (106404  ,'Carolyn E Robinson',2013,    5904      ,'Transit Operator');
+insert into sf_public_salaries (id,employeename,year,totalpay,jobtitle) values (64637   ,'Matthew Lu',2012,    26818.29  ,'Transit Operator');
+insert into sf_public_salaries (id,employeename,year,totalpay,jobtitle) values (144555  ,'Lawrence C Blakes Jr',2014,    5714.02   ,'Transit Operator');
+insert into sf_public_salaries (id,employeename,year,totalpay,jobtitle) values (140998  ,'Miguel J Gonzalez Jr',2014,    17563.21  ,'Transit Operator');
+insert into sf_public_salaries (id,employeename,year,totalpay,jobtitle) values (142304  ,'Tara A Amado',2014,    11718.96  ,'Transit Operator');
+insert into sf_public_salaries (id,employeename,year,totalpay,jobtitle) values (110444  ,'Brighton M Leung',2013,    107.36    ,'Public Svc Aide-Public Works');
+insert into sf_public_salaries (id,employeename,year,totalpay,jobtitle) values (138094  ,'Nicole J Lafata Shark',2014,    42734.43  ,'EMT/Paramedic/Firefighter');
+insert into sf_public_salaries (id,employeename,year,totalpay,jobtitle) values (142597  ,'Ernest E Hayles',2014,    11180     ,'Firefighter');
+insert into sf_public_salaries (id,employeename,year,totalpay,jobtitle) values (109955  ,'David A Fleming',2013,    642.91    ,'Special Nurse');
+insert into sf_public_salaries (id,employeename,year,totalpay,jobtitle) values (109056  ,'Melinda  Kuoch',2013,    1994      ,'Eligibility Worker');
+insert into sf_public_salaries (id,employeename,year,totalpay,jobtitle) values (102861  ,'Jeanne M D''Arcy',2013,    27644.52  ,'Registered Nurse');
+insert into sf_public_salaries (id,employeename,year,totalpay,jobtitle) values (109510  ,'Iesha M Jones',2013,    1542.97   ,'Public Svc Aide-Public Works');
+insert into sf_public_salaries (id,employeename,year,totalpay,jobtitle) values (71485   ,'Clarence Walker',2012,    2173.87   ,'Public Svc Aide-Public Works');
+insert into sf_public_salaries (id,employeename,year,totalpay,jobtitle) values (105484  ,'Michaela T Womack',2013,    7448.84   ,'Transit Operator');
+insert into sf_public_salaries (id,employeename,year,totalpay,jobtitle) values (135721  ,'Mary C Huston',2014,    60916.15  ,'Registered Nurse');
+insert into sf_public_salaries (id,employeename,year,totalpay,jobtitle) values (138726  ,'Christina A Couch',2014,    34549.35  ,'EMT/Paramedic/Firefighter');
+insert into sf_public_salaries (id,employeename,year,totalpay,jobtitle) values (71342   ,'Roy Hill',2012,    2470.15   ,'Public Svc Aide-Public Works');
+insert into sf_public_salaries (id,employeename,year,totalpay,jobtitle) values (147588  ,'Jessica H Lee',2014,    1278.2    ,'Special Nurse');
+insert into sf_public_salaries (id,employeename,year,totalpay,jobtitle) values (70927   ,'Kennis Grant',2012,    106.86    ,'Transit Operator');
+insert into sf_public_salaries (id,employeename,year,totalpay,jobtitle) values (69443   ,'John Hunt',2012,    7858.5    ,'Transit Operator');
+insert into sf_public_salaries (id,employeename,year,totalpay,jobtitle) values (49188   ,'Richard Kendall',2012,    88987.39  ,'Deputy Sheriff');
+insert into sf_public_salaries (id,employeename,year,totalpay,jobtitle) values (72441   ,'Marcus Duty',2012,    531.7     ,'Public Svc Aide-Public Works');
+insert into sf_public_salaries (id,employeename,year,totalpay,jobtitle) values (72129   ,'Glenn Daniels',2012,    1026.05   ,'Public Svc Aide-Public Works');
+insert into sf_public_salaries (id,employeename,year,totalpay,jobtitle) values (71886   ,'David Ayers Jr',2012,    1428.63   ,'Public Svc Aide-Public Works');
+insert into sf_public_salaries (id,employeename,year,totalpay,jobtitle) values (138822  ,'Neal K Rodil',2014,    33563.91  ,'EMT/Paramedic/Firefighter');
+insert into sf_public_salaries (id,employeename,year,totalpay,jobtitle) values (110421  ,'Blesilda P Huypungco',2013,    113.94    ,'Special Nurse');
+insert into sf_public_salaries (id,employeename,year,totalpay,jobtitle) values (72498   ,'Catheryn Williams',2012,    372.35    ,'Special Nurse');
+insert into sf_public_salaries (id,employeename,year,totalpay,jobtitle) values (139203  ,'Merter Bozkurt',2014,    27597.82  ,'Transit Operator');
+insert into sf_public_salaries (id,employeename,year,totalpay,jobtitle) values (72603   ,'Connie Love-Miles',2012,    158.02    ,'Special Nurse');
+insert into sf_public_salaries (id,employeename,year,totalpay,jobtitle) values (84282   ,'Jared F Cooper',2013,    100553.53 ,'EMT/Paramedic/Firefighter');
+insert into sf_public_salaries (id,employeename,year,totalpay,jobtitle) values (71389   ,'Alicia Brown',2012,    2386.55   ,'Public Svc Aide-Public Works');
+insert into sf_public_salaries (id,employeename,year,totalpay,jobtitle) values (109715  ,'Sen Cheong  Lai',2013,    759.76    ,'Transit Operator');
+insert into sf_public_salaries (id,employeename,year,totalpay,jobtitle) values (110275  ,'Graciela M Arevalo',2013,    289.62    ,'Special Nurse');
+insert into sf_public_salaries (id,employeename,year,totalpay,jobtitle) values (147814  ,'Iris J Lett',2014,    927.23    ,'Transit Operator');
+insert into sf_public_salaries (id,employeename,year,totalpay,jobtitle) values (142199  ,'Tim C Ghigliazza',2014,    11121.12  ,'Transit Operator');
+insert into sf_public_salaries (id,employeename,year,totalpay,jobtitle) values (148472  ,'Jimmy Tang',2014,    182.58    ,'Public Service Trainee');
+insert into sf_public_salaries (id,employeename,year,totalpay,jobtitle) values (48811   ,'Aaron Schmidt',2012,    91903.92  ,'Deputy Sheriff');
+insert into sf_public_salaries (id,employeename,year,totalpay,jobtitle) values (147204  ,'Mario Armbrister',2014,    2227.77   ,'Public Svc Aide-Public Works');
+insert into sf_public_salaries (id,employeename,year,totalpay,jobtitle) values (109353  ,'Elizabeth M Leahy',2013,    1886.38   ,'Firefighter');
+insert into sf_public_salaries (id,employeename,year,totalpay,jobtitle) values (110036  ,'Carla R Greenblatt',2013,    544       ,'Special Nurse');
+insert into sf_public_salaries (id,employeename,year,totalpay,jobtitle) values (140786  ,'Dhakir R Zaki',2014,    18395.39  ,'Transit Operator');
+insert into sf_public_salaries (id,employeename,year,totalpay,jobtitle) values (147840  ,'Alondra Correa Almanza',2014,    1106.64   ,'Public Service Trainee');
+insert into sf_public_salaries (id,employeename,year,totalpay,jobtitle) values (48199   ,'Otha Cotton',2012,    92504.77  ,'Deputy Sheriff');
+insert into sf_public_salaries (id,employeename,year,totalpay,jobtitle) values (39202   ,'Lawrence Chan',2012,    151429.74 ,'Sergeant 3');
+insert into sf_public_salaries (id,employeename,year,totalpay,jobtitle) values (63024   ,'Ying Ying Hui',2012,    42682.34  ,'Registered Nurse');
+insert into sf_public_salaries (id,employeename,year,totalpay,jobtitle) values (105463  ,'Terri L Mathis',2013,    8444.54   ,'Transit Operator');
+insert into sf_public_salaries (id,employeename,year,totalpay,jobtitle) values (139849  ,'Sedrick M Mcarthur',2014,    26973.15  ,'Transit Operator');
+insert into sf_public_salaries (id,employeename,year,totalpay,jobtitle) values (136970  ,'Karen M Gomez',2014,    49887.77  ,'Registered Nurse');
+insert into sf_public_salaries (id,employeename,year,totalpay,jobtitle) values (48564   ,'Thomas Ro',2012,    97043.65  ,'EMT/Paramedic/Firefighter');
+insert into sf_public_salaries (id,employeename,year,totalpay,jobtitle) values (97623   ,'Francis J Monsada',2013,    54472.98  ,'Junior Administrative Analyst');
+insert into sf_public_salaries (id,employeename,year,totalpay,jobtitle) values (69338   ,'Samer Bouri',2012,    5997.16   ,'Transit Operator');
+insert into sf_public_salaries (id,employeename,year,totalpay,jobtitle) values (87033   ,'Robert J Loberg',2013,    88675.91  ,'Deputy Sheriff');
+insert into sf_public_salaries (id,employeename,year,totalpay,jobtitle) values (72081   ,'John Donnelly',2012,    961.77    ,'Special Nurse');
+insert into sf_public_salaries (id,employeename,year,totalpay,jobtitle) values (110299  ,'Silas D Moultrie Jr',2013,    319.02    ,'Public Svc Aide-Public Works');
+insert into sf_public_salaries (id,employeename,year,totalpay,jobtitle) values (130622  ,'Dennis J Gerbino',2014,    67667.55  ,'IS Programmer Analyst');
+insert into sf_public_salaries (id,employeename,year,totalpay,jobtitle) values (54798   ,'Frankie Johnson',2012,    69590.3   ,'Senior Eligibility Worker');
+insert into sf_public_salaries (id,employeename,year,totalpay,jobtitle) values (69063   ,'Nina Davis',2012,    8928.12   ,'PS Aide Health Services');
+insert into sf_public_salaries (id,employeename,year,totalpay,jobtitle) values (70438   ,'Pecola Jones',2012,    4511.81   ,'Public Svc Aide-Public Works');
+insert into sf_public_salaries (id,employeename,year,totalpay,jobtitle) values (88467   ,'Grace  Lin',2013,    82901.08  ,'Estate Investigator');
+insert into sf_public_salaries (id,employeename,year,totalpay,jobtitle) values (56140   ,'Clark Bell',2012,    72045.4   ,'IS Programmer Analyst-Senior');
+insert into sf_public_salaries (id,employeename,year,totalpay,jobtitle) values (714     ,'YEVA JOHNSON',2011,    178760.58 ,'SENIOR PHYSICIAN SPECIALIST');
+insert into sf_public_salaries (id,employeename,year,totalpay,jobtitle) values (29865   ,'LEA YAMAGATA',2011,    17064.42  ,'LIBRARY PAGE');
+insert into sf_public_salaries (id,employeename,year,totalpay,jobtitle) values (147636  ,'Russell Patrick Mangahas',2014,    1153.78   ,'Special Nurse');
+insert into sf_public_salaries (id,employeename,year,totalpay,jobtitle) values (110161  ,'Patrick F Mcpartland',2013,    501.13    ,'Public Service Trainee');
+insert into sf_public_salaries (id,employeename,year,totalpay,jobtitle) values (47639   ,'Patrick Crane',2012,    95456.22  ,'Deputy Sheriff');
+insert into sf_public_salaries (id,employeename,year,totalpay,jobtitle) values (51908   ,'Patrick Martinez',2012,    77454     ,'Estate Investigator');
+insert into sf_public_salaries (id,employeename,year,totalpay,jobtitle) values (85769   ,'Patrick T Truong',2013,    94120.86  ,'Deputy Sheriff');
+insert into sf_public_salaries (id,employeename,year,totalpay,jobtitle) values (115360  ,'Patrick Kennedy',2014,    137510.73 ,'Sergeant 3');
+insert into sf_public_salaries (id,employeename,year,totalpay,jobtitle) values (109179  ,'Emilia C Patrick',2013,    1824.38   ,'Special Nurse');
+insert into sf_public_salaries (id,employeename,year,totalpay,jobtitle) values (125793  ,'Patrick S Renshaw',2014,    83775.87  ,'EMT/Paramedic/Firefighter');
+insert into sf_public_salaries (id,employeename,year,totalpay,jobtitle) values (133413  ,'Emilia C Patrick',2014,    66289.3   ,'Registered Nurse');
+insert into sf_public_salaries (id,employeename,year,totalpay,jobtitle) values (121116  ,'Patrick T Truong',2014,    101971.87 ,'Deputy Sheriff');
+insert into sf_public_salaries (id,employeename,year,totalpay,jobtitle) values (84      ,'EDWARD REISKIN',2011,    230827.12 ,'GENERAL MANAGER-METROPOLITAN TRANSIT AUTHORITY');
+insert into sf_public_salaries (id,employeename,year,totalpay,jobtitle) values (1       ,'NATHANIEL FORD',2011,    567595.43 ,'GENERAL MANAGER-METROPOLITAN TRANSIT AUTHORITY');
+insert into sf_public_salaries (id,employeename,year,totalpay,jobtitle) values (12      ,'PATRICIA JACKSON',2011,    297608.92 ,'CAPTAIN III (POLICE DEPARTMENT)');
+insert into sf_public_salaries (id,employeename,year,totalpay,jobtitle) values (371     ,'TERESA BARRETT',2011,    192914.5  ,'CAPTAIN III (POLICE DEPARTMENT)');
+insert into sf_public_salaries (id,employeename,year,totalpay,jobtitle) values (62      ,'ANNA BROWN',2011,    238551.88 ,'CAPTAIN III (POLICE DEPARTMENT)');
+insert into sf_public_salaries (id,employeename,year,totalpay,jobtitle) values (304     ,'DOUGLAS MCEACHERN',2011,    196494.14 ,'CAPTAIN III (POLICE DEPARTMENT)');
+insert into sf_public_salaries (id,employeename,year,totalpay,jobtitle) values (367     ,'JOHN LOFTUS',2011,    192951.37 ,'CAPTAIN III (POLICE DEPARTMENT)');
+
+
+
+
+insert into sf_public_salaries (id,employeename,year,totalpay,jobtitle) values (72081   ,'John Donnelly',2013,    991.99    ,'Special Nurse');
+insert into sf_public_salaries (id,employeename,year,totalpay,jobtitle) values (110299  ,'Silas D Moultrie Jr',2014,    419.02    ,'Public Svc Aide-Public Works');
+insert into sf_public_salaries (id,employeename,year,totalpay,jobtitle) values (130622  ,'Dennis J Gerbino',2013,    77667.55  ,'IS Programmer Analyst');
+insert into sf_public_salaries (id,employeename,year,totalpay,jobtitle) values (54798   ,'Frankie Johnson',2011,    65590.3   ,'Senior Eligibility Worker');
+insert into sf_public_salaries (id,employeename,year,totalpay,jobtitle) values (69063   ,'Nina Davis',2011,    6928.12   ,'PS Aide Health Services');
+insert into sf_public_salaries (id,employeename,year,totalpay,jobtitle) values (70438   ,'Pecola Jones',2013,    7511.81   ,'Public Svc Aide-Public Works');
+insert into sf_public_salaries (id,employeename,year,totalpay,jobtitle) values (88467   ,'Grace  Lin',2014,    85901.08  ,'Estate Investigator');
+insert into sf_public_salaries (id,employeename,year,totalpay,jobtitle) values (56140   ,'Clark Bell',2013,    79045.4   ,'IS Programmer Analyst-Senior');
+insert into sf_public_salaries (id,employeename,year,totalpay,jobtitle) values (714     ,'YEVA JOHNSON',2012,    208760.58 ,'SENIOR PHYSICIAN SPECIALIST');
+insert into sf_public_salaries (id,employeename,year,totalpay,jobtitle) values (29865   ,'LEA YAMAGATA',2012,    20064.42  ,'LIBRARY PAGE');
+
+
+insert into sf_public_salaries (id,employeename,year,totalpay,jobtitle) values (72441   ,'Marcus Duty',2013,    631.7     ,'Public Svc Aide-Public Works');
+insert into sf_public_salaries (id,employeename,year,totalpay,jobtitle) values (72129   ,'Glenn Daniels',2013,    1226.05   ,'Public Svc Aide-Public Works');
+insert into sf_public_salaries (id,employeename,year,totalpay,jobtitle) values (71886   ,'David Ayers Jr',2011,    1628.63   ,'Public Svc Aide-Public Works');
+insert into sf_public_salaries (id,employeename,year,totalpay,jobtitle) values (138822  ,'Neal K Rodil',2011,    40563.91  ,'EMT/Paramedic/Firefighter');
+
+insert into sf_public_salaries (id,employeename,year,totalpay,jobtitle) values (72441   ,'Marcus Duty',2014,    581.7     ,'Public Svc Aide-Public Works');
+insert into sf_public_salaries (id,employeename,year,totalpay,jobtitle) values (72129   ,'Glenn Daniels',2014,    1126.05   ,'Public Svc Aide-Public Works');
+insert into sf_public_salaries (id,employeename,year,totalpay,jobtitle) values (71886   ,'David Ayers Jr',2013,    1528.63   ,'Public Svc Aide-Public Works');
+insert into sf_public_salaries (id,employeename,year,totalpay,jobtitle) values (138822  ,'Neal K Rodil',2013,    34563.91  ,'EMT/Paramedic/Firefighter');
+
+
+
+
+select * from sf_public_salaries;
+

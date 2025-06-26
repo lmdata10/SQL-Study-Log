@@ -1,0 +1,5 @@
+select employee--, count(distinct skills)
+from required_skills rs
+join skills s on rs.skills = s.skillset
+group by employee
+having count(distinct skills) = 3;

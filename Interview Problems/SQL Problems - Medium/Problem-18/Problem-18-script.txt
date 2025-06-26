@@ -1,0 +1,27 @@
+-- Identify days when there are consecutive hoildays
+
+drop table if exists calendar;
+create table calendar(day date, holiday boolean);
+insert into calendar values('2024-12-21'::date, True);
+insert into calendar values('2024-12-22'::date, True);
+insert into calendar values('2024-12-23'::date, False);
+insert into calendar values('2024-12-24'::date, True);
+insert into calendar values('2024-12-25'::date, True);
+insert into calendar values('2024-12-26'::date, True);
+insert into calendar values('2024-12-27'::date, False);
+insert into calendar values('2024-12-28'::date, True);
+insert into calendar values('2024-12-29'::date, True);
+insert into calendar values('2024-12-30'::date, False);
+insert into calendar values('2024-12-31'::date, False);
+insert into calendar values('2025-01-01'::date, True);
+insert into calendar values('2025-01-02'::date, False);
+insert into calendar values('2025-01-03'::date, False);
+insert into calendar values('2025-01-04'::date, True);
+insert into calendar values('2025-01-05'::date, True);
+insert into calendar values('2025-01-06'::date, True);
+insert into calendar values('2025-01-07'::date, False);
+insert into calendar values('2025-01-08'::date, False);
+insert into calendar values('2025-01-09'::date, False);
+insert into calendar values('2025-01-10'::date, False);
+
+select * from calendar;

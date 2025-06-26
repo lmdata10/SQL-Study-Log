@@ -1,0 +1,47 @@
+select * from emp_details; 
+-- Find the hierarchy of employees under a given manager "Asha".
+
+with recursive cte as
+	(
+	select id, name, designation, 1 as iteration
+	from emp_details where name = 'Asha'
+	union all 
+	select e.id, e.name, e.designation, (iteration+1) as iteration
+	from cte
+	join emp_details e on cte.id = e.manager_id
+	)
+select * from cte;
+
+
+/*
+-- 1st Iteration
+select id, name, designation, 1 as iteration
+from emp_details where name = 'Asha'
+
+-- 2nd Iteration
+select e.id, e.name, e.designation, (iteration+1) as iteration
+from (select id, name, designation, 1 as iteration
+	from emp_details where name = 'Asha') cte
+join emp_details e on cte.id = e.manager_id
+
+
+-- 3rd Iteration
+select e.id, e.name, e.designation, (iteration+1) as iteration
+from (select e.id, e.name, e.designation, (iteration+1) as iteration
+	from (select id, name, designation, 1 as iteration
+		from emp_details where name = 'Asha') cte
+	join emp_details e on cte.id = e.manager_id) cte
+join emp_details e on cte.id = e.manager_id
+
+
+-- 4th Iteration
+select e.id, e.name, e.designation, (iteration+1) as iteration
+from (select e.id, e.name, e.designation, (iteration+1) as iteration
+	from (select e.id, e.name, e.designation, (iteration+1) as iteration
+		from (select id, name, designation, 1 as iteration
+			from emp_details where name = 'Asha') cte
+		join emp_details e on cte.id = e.manager_id) cte
+	join emp_details e on cte.id = e.manager_id) cte
+join emp_details e on cte.id = e.manager_id
+
+*/

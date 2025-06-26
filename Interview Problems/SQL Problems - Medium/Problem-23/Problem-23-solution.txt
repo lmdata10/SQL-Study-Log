@@ -1,0 +1,14 @@
+-- SOLUTION:
+WITH MissedAppointments AS (
+    SELECT patient_id, COUNT(*) AS missed_count
+    FROM appointments
+    WHERE status = 'missed' AND appointment_date >= current_date - INTERVAL '1 year'
+    GROUP BY patient_id
+    HAVING COUNT(*) >= 3
+)
+SELECT m.patient_id, p.name, m.missed_count, a.appointment_date AS next_appointment
+FROM MissedAppointments m
+JOIN patients p ON m.patient_id = p.patient_id
+LEFT JOIN appointments a ON m.patient_id = a.patient_id AND a.appointment_date > current_date
+ORDER BY a.appointment_date ASC;
+

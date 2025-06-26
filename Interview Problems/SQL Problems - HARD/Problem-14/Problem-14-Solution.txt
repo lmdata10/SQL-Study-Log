@@ -1,0 +1,19 @@
+
+ -- Solution 1
+select min(d.day) as min_temp, max(d.day) as max_temp, round(avg(d.day),2) as avg_temp
+from (
+	select day_1 as day from weather union
+	select day_2 as day from weather union
+	select day_3 as day from weather union
+	select day_4 as day from weather union
+	select day_5 as day from weather union
+	select day_6 as day from weather 
+	) d;
+
+
+
+-- Solution 2:
+
+select min(day) as min_temp, max(day) as max_temp, round(avg(day),2) as avg_temp
+from weather
+cross join lateral (values (day_1), (day_2), (day_3), (day_4), (day_5), (day_6)) as d(day)	

@@ -1,0 +1,14 @@
+
+select to_user as receiver--, label
+, sum(case when label = 'Shopping' then 1 else 0 end) as Shopping
+, sum(case when label = 'Social' then 1 else 0 end) as Social
+, sum(case when label = 'Promotion' then 1 else 0 end) as Promotion
+from google_gmail_emails e
+join google_gmail_labels l on l.email_id = e.id
+where l.label in ('Promotion', 'Social', 'Shopping')
+--and to_user = '114bafadff2d882864'
+group by to_user
+order by receiver
+
+
+

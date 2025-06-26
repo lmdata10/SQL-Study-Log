@@ -1,0 +1,49 @@
+-- solution 1 (PostgreSQL)
+select distinct ret_user.user_id
+from amazon_transactions usr
+join amazon_transactions ret_user
+	on usr.user_id = ret_user.user_id
+	and usr.id <> ret_user.id
+	and ret_user.created_at >= usr.created_at
+	and ret_user.created_at <= usr.created_at + interval '7 DAY'
+order by 1;
+
+
+-- solution 2 (PostgreSQL)
+select distinct ret_user.user_id
+from amazon_transactions usr
+join amazon_transactions ret_user
+	on usr.user_id = ret_user.user_id
+    and usr.id <> ret_user.id
+	and ret_user.created_at between usr.created_at and usr.created_at + interval '7 DAY'
+order by 1;
+
+
+-- In MySQL:
+select distinct ret_user.user_id
+from amazon_transactions usr
+join amazon_transactions ret_user
+	on usr.user_id = ret_user.user_id
+    and usr.id <> ret_user.id
+	and ret_user.created_at between usr.created_at and DATE_ADD(usr.created_at, INTERVAL 7 DAY)
+order by 1;
+
+
+-- In Oracle:
+select distinct ret_user.user_id
+from amazon_transactions usr
+join amazon_transactions ret_user
+	on usr.user_id = ret_user.user_id
+    and usr.id <> ret_user.id
+	and ret_user.created_at between usr.created_at and usr.created_at + 7
+order by 1;
+
+
+-- In MSSQL:
+select distinct ret_user.user_id
+from amazon_transactions usr
+join amazon_transactions ret_user
+	on usr.user_id = ret_user.user_id
+    and usr.id <> ret_user.id
+	and ret_user.created_at between usr.created_at and dateadd(DAY, 7, usr.created_at)
+order by 1;

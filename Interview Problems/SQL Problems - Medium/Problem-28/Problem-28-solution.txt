@@ -1,0 +1,9 @@
+--- SOLUTION --- 
+with cte as 
+    (SELECT * 
+    , ntile(20) over(order by balls) as overs
+    FROM match_score)
+select overs, sum(runs) as runs_per_over
+from cte
+group by overs
+order by overs;

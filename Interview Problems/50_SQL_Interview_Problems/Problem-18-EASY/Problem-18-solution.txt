@@ -1,0 +1,11 @@
+
+
+select s.student_id, string_agg(distinct d.device,', ') as Devices
+from student_devices s 
+join devices d on d.id=s.device_id
+group by student_id
+order by student_id
+
+
+
+

@@ -1,0 +1,52 @@
+-- Solution
+select department, grade, salary
+from employee_info
+union
+select department, 'All Grades' as grade, sum(salary) as salary
+from employee_info
+group by department
+union
+select 'All Departments' as department, grade, sum(salary) as salary
+from employee_info
+group by grade
+union
+select 'All Departments' as department, 'All Grades' as grade, sum(salary) as salary
+from employee_info
+order by 1,2 desc;
+
+-- Solution 1 with proper sorting
+select * from (
+	select department, grade, salary
+	from employee_info
+	union
+	select department, 'All Grades' as grade, sum(salary) as salary
+	from employee_info
+	group by department
+	order by 1,2 desc) x
+union all
+select * from (
+	select 'All Departments' as department, grade, sum(salary) as salary
+	from employee_info
+	group by grade
+	union
+	select 'All Departments' as department, 'All Grades' as grade, sum(salary) as salary
+	from employee_info
+	order by 1,2 desc) y ;
+
+-- Solution 2 with proper sorting
+select department, grade, salary
+from (
+	select department, grade, salary, 1 as rn
+	from employee_info
+	union
+	select department, 'All Grades' as grade, sum(salary) as salary, 1 as rn
+	from employee_info
+	group by department
+	union
+	select 'All Departments' as department, grade, sum(salary) as salary, 2 as rn
+	from employee_info
+	group by grade
+	union
+	select 'All Departments' as department, 'All Grades' as grade, sum(salary) as salary, 2 as rn
+	from employee_info
+	order by 4,1,2 desc) x

@@ -1,0 +1,6 @@
+
+select * from all_names 
+where  not regexp_like (names,'[A-Za-z ]*');
+
+
+

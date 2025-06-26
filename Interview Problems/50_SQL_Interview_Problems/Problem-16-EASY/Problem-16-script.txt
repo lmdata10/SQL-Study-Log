@@ -1,0 +1,28 @@
+-- Identify the average cost of all online orders and total no of orders done on holidays.
+drop table if exists orders;
+create table orders(id int, item varchar(100), order_date date, price decimal, stream varchar(10));
+insert into orders values(1, 'Fruit cake', '2025-01-01', 95, 'Online');
+insert into orders values(2, 'Egg Noodles', '2025-01-02', 30, 'Online');
+insert into orders values(3, 'Cheese cake', '2025-01-03', 125, 'Online');
+insert into orders values(4, 'Carrot cake', '2025-01-03', 75, 'Online');
+insert into orders values(5, 'Strawberry Shake', '2025-01-04', 25, 'Online');
+insert into orders values(6, 'Glazed Doughnut cake', '2025-01-04', 20, 'Offline');
+insert into orders values(7, 'Fruit cake', '2025-01-05', 95, 'Offline');
+insert into orders values(8, 'Cheese cake', '2025-01-05', 125, 'Offline');
+insert into orders values(9, 'Egg Noodles', '2025-01-06', 30, 'Offline');
+insert into orders values(10, 'Vanilla Shake', '2025-01-07', 25, 'Offline');
+
+
+drop table if exists store_calendar;
+create table store_calendar(year int, month int, day int, weekday varchar(10), holiday boolean);
+insert into store_calendar values(2025, 1, 1, 'Wednesday', True);
+insert into store_calendar values(2025, 1, 2, 'Thursday', False);
+insert into store_calendar values(2025, 1, 3, 'Friday', False);
+insert into store_calendar values(2025, 1, 4, 'Saturday', True);
+insert into store_calendar values(2025, 1, 5, 'Sunday', True);
+insert into store_calendar values(2025, 1, 6, 'Monday', True);
+insert into store_calendar values(2025, 1, 7, 'Tuesday', False);
+
+select * from orders;
+select * from store_calendar;
+

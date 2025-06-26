@@ -1,0 +1,45 @@
+/* Find the date with the highest total energy consumption from the Meta/Facebook data centers.
+Output the date along with the total energy consumption across all data centers.
+If there are multiple days with same highest energy consumption then display both dates.
+*/
+
+drop table fb_eu_energy;
+create table fb_eu_energy
+    (
+        date            date,
+        consumption     int
+    );
+
+drop table fb_asia_energy;
+create table fb_asia_energy
+    (
+        date            date,
+        consumption     int
+    );
+
+drop table fb_na_energy;
+create table fb_na_energy
+    (
+        date            date,
+        consumption     int
+    );
+
+insert into fb_eu_energy values ('2020-01-01',400);
+insert into fb_eu_energy values ('2020-01-02',350);
+insert into fb_eu_energy values ('2020-01-03',500);
+insert into fb_eu_energy values ('2020-01-04',500);
+insert into fb_eu_energy values ('2020-01-07',600);
+
+insert into fb_asia_energy values ('2020-01-01',400);
+insert into fb_asia_energy values ('2020-01-02',400);
+insert into fb_asia_energy values ('2020-01-04',675);
+insert into fb_asia_energy values ('2020-01-05',1200);
+insert into fb_asia_energy values ('2020-01-06',750);
+insert into fb_asia_energy values ('2020-01-07',400);
+
+insert into fb_na_energy values ('2020-01-01',250);
+insert into fb_na_energy values ('2020-01-02',375);
+insert into fb_na_energy values ('2020-01-03',600);
+insert into fb_na_energy values ('2020-01-06',500);
+insert into fb_na_energy values ('2020-01-07',250);
+commit;

@@ -1,0 +1,16 @@
+-- SOLUTION
+with cte as
+    (select concat(first_name,' ',last_name) as candidate_name
+    , state
+    , count(1) as total
+    , dense_rank() over(partition by concat(first_name,' ',last_name) order by count(1) desc) as rnk
+    from candidates_tab c
+    join results_tab r on r.candidate_id = c.id
+    group by candidate_name, state)
+select candidate_name
+, listagg(case when rnk = 1 then state||' ('||total||')' end, ', ') as "1st_place"
+, listagg(case when rnk = 2 then state||' ('||total||')' end, ', ') as "2nd_place"
+, listagg(case when rnk = 3 then state||' ('||total||')' end, ', ') as "3rd_place"
+from cte 
+where rnk <= 3
+group by candidate_name

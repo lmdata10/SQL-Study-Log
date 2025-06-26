@@ -1,0 +1,17 @@
+--- Derive the expected output using given input table 
+
+drop table city_distance;
+create table city_distance
+(
+    source          varchar(20),
+    destination     varchar(20),
+    distance        int
+);
+insert into city_distance values ('Berlin', 'Warsaw', 600);
+insert into city_distance values ('Warsaw', 'Berlin', 600);
+insert into city_distance values ('Vienna', 'Prague', 600);
+insert into city_distance values ('Prague', 'Vienna', 600);
+insert into city_distance values ('Paris', 'Amsterdam', 600);
+insert into city_distance values ('Amsterdam', 'Paris', 600);
+
+select * from city_distance;

@@ -1,0 +1,11 @@
+
+create table status
+(
+	code int, 
+	description varchar(20)
+);
+
+insert into status values(1,'Pending');
+insert into status values(2,'Processing');
+insert into status values(3,'Rejected');
+insert into status values(4,'Completed');

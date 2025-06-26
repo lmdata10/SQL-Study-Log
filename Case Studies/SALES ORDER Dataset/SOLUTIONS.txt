@@ -1,0 +1,214 @@
+ 
+-- Solutions to the 22 problems from Sales Order dataset:
+
+	select * from customers;
+	select * from products;
+	select * from sales_order;
+
+
+
+1) Fetch all the small shipped ORDERS from August 2003 till the end of year 2003.
+		select *
+		from sales_order
+		where deal_size = 'Small'
+		and status = 'Shipped'
+		and order_date between to_date('01-08-2003', 'dd-mm-yyyy') and to_date('31-12-2003', 'dd-mm-yyyy');
+
+		select *
+		from sales_order
+		where deal_size = 'Small'
+		and status = 'Shipped'
+		and year_id=2003 
+		and month_id >= 8;
+
+
+2) Find all the orders which do not belong to customers from USA and are still in process.
+		select s.*
+		from sales_order s
+		join customers c on c.customer_id = s.customer
+		where c.country <> 'USA'
+		and s.status = 'In Process';
+
+
+3) Find all orders for Planes, Ships and Trains which are neither Shipped nor In Process nor Resolved.
+        select *
+        from Sales_order s
+        join products p on p.product_code=s.product
+        where p.product_line in ('Planes', 'Ships', 'Trains')
+        and s.deal_size not in ('Shipped', 'In Process', 'Resolved');
+
+
+4) Find customers whose phone number has either parenthesis "()" or a plus sign "+".
+        select *
+        from Customers
+        where phone like '%+%' or phone like '%(%' or phone like '%)%';
+
+
+5) Find customers whose phone number does not have any space.
+        select *
+        from Customers
+        where phone not like '% %';
+
+
+6) Fetch all the orders between Feb 2003 and May 2003 where the quantity ordered was an even number.
+        select *
+        from Sales_order
+        where order_date between to_date('01-02-2003', 'dd-mm-yyyy') and to_date('31-05-2003', 'dd-mm-yyyy')
+        and quantity_ordered % 2 = 0;
+
+
+7) Find orders which sold the product for price higher than its original price.
+        select s.order_number, s.price_each, p.price, p.product_line, p.product_code
+        from Sales_order s
+        join products p on p.product_code=s.product
+        where s.price_each > p.price;
+
+
+8) Find the average sales order price
+        select round(avg(sales)::decimal,2) as avg_sales
+        from Sales_order;
+
+
+9) Count total no of orders.
+        select count(1) as total_orders from Sales_order;
+
+
+10) Find the total quantity sold.
+        select sum(quantity_ordered) as total_items_sold from Sales_order;
+
+
+11) Fetch the first order date and the last order date.
+        select min(order_date) first_order_date, max(order_date) last_order_date
+        from sales_order;
+
+
+12) Find the average sales order price based on deal size
+		select deal_size, avg(sales) as avg_sales
+		from sales_order
+		group by deal_size;
+
+
+13) Find total no of orders per each day. Sort data based on highest orders.
+		select order_date, count(1) as no_of_orders
+		from sales_order
+		group by order_date
+		order by no_of_orders desc;
+
+
+14) Display the total sales figure for each quarter. Represent each quarter with their respective period.
+		select qtr_id
+		, case when qtr_id = 1 then 'JAN-MAR'
+			   when qtr_id = 2 then 'APR-JUN'
+			   when qtr_id = 3 then 'JUL-SEP'
+			   --ELSE 'OCT-DEC'
+		  END QUARTER
+		, sum(sales) as total_sales
+		from Sales_order group by qtr_id
+
+
+15) Identify how many cars, Motorcycles, trains and ships are available in the inventory.
+Treat all type of cars as just "Cars".
+		-- Solution 1:
+		SELECT case when product_line in ('Classic Cars', 'Vintage Cars') 
+						then 'Cars' 
+					else product_line 
+			   end vehicles
+		, count(1)
+		FROM products
+		where product_line in ('Classic Cars', 'Vintage Cars', 'Motorcycles', 'Trains', 'Ships')
+		group by case when product_line in ('Classic Cars', 'Vintage Cars') 
+							then 'Cars' 
+						else product_line 
+				   end;
+
+		-- Solution 2:
+		select product, sum(no_of_vehicles) 
+		from (
+			select case when product_line in ('Classic Cars', 'Vintage Cars') then 'Cars' else product_line end product
+			, no_of_vehicles
+			from (
+				SELECT product_line
+				, count(1) as no_of_vehicles
+				FROM products
+				where product_line in ('Classic Cars', 'Vintage Cars', 'Motorcycles', 'Trains', 'Ships')
+				group by product_line) x 
+			) y 
+		group by product;	
+
+
+		-- solution 3
+		select product_line, count(1) as no_of_vehicles
+		FROM products
+		where product_line in ('Motorcycles', 'Trains', 'Ships')
+		group by product_line
+		union
+		select 'Cars', count(1) as no_of_vehicles
+		FROM products
+		where product_line like '%Cars%';
+
+
+16) Identify the vehicles in the inventory which are short in number.
+Shortage of vehicle is considered when there are less than 10 vehicles.
+		select product_line, count(1)
+		from products
+		group by product_line
+		having count(1) < 10;
+
+
+17) Find the countries which have purchased more than 10 motorcycles.
+	    select p.product_line, c.country, count(1)
+	    from Sales_order s
+	    join products p on p.product_code = s.product
+	    join customers c on c.customer_id = s.customer
+	    where p.product_line = 'Motorcycles'
+	    group by p.product_line, c.country
+	    having count(1) > 10
+	    order by 3 desc;
+
+
+18) Find the orders where the sales amount is incorrect.
+		SELECT order_number
+		, round(sales::decimal,2) as sales
+		, round((quantity_ordered * price_each)::decimal, 2) as calc_amt
+		FROM sales_order 
+		where round(sales::decimal,2) <> round((quantity_ordered * price_each)::decimal, 2);
+
+
+19) Fetch the total sales done for each day.
+	    select order_date, sum(sales)::decimal as sales
+	    from Sales_order
+	    group by order_date
+	    order by 2 desc;
+
+
+20) Fetch the top 3 months which have been doing the lowest sales.
+	    select to_char(order_date, 'Mon'), sum(sales)::decimal as sales
+	    from Sales_order
+	    group by to_char(order_date, 'Mon')
+	    order by 2
+	    limit 3;
+
+
+21) Find total no of orders per each day of the week (monday to sunday). Sort data based on highest orders.
+		select extract (isodow from order_date), count(1) as no_of_orders
+		from sales_order
+		group by extract (isodow from order_date)
+		order by 1,2 ;
+
+
+22) Find out the vehicles which was sold the most and which was sold the least. Output should be a single record which 2 columns. One column for most sold vehicle and other for least sold vehicle.
+		select 	most_sold_vehicle, least_sold_vehicle
+		from (select p.product_line ||' ('|| sum(quantity_ordered)  ||')' as most_sold_vehicle
+			from Sales_order so
+			join products p on p.product_code=so.product
+			group by p.product_line	
+			order by sum(quantity_ordered) desc
+			limit 1) a,
+			(select p.product_line ||' ('|| sum(quantity_ordered)  ||')' as least_sold_vehicle
+			from Sales_order so
+			join products p on p.product_code=so.product
+			group by p.product_line	
+			order by sum(quantity_ordered) 
+			limit 1) b ;
+
+

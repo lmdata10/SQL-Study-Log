@@ -1,0 +1,117 @@
+/*
+Write a query that'll identify returning active users.
+A returning active user is a user that has made a second purchase within 7 days of any other of
+their purchases. Output a list of user_ids of these returning active users.
+*/
+
+drop table amazon_transactions;
+create table amazon_transactions
+    (
+        id          int,
+        user_id     int,
+        item        varchar,
+        created_at  date,
+        revenue     int
+    );
+
+insert into amazon_transactions values (1,109,'milk',to_date('2020-03-03','yyyy-mm-dd'),123);
+insert into amazon_transactions values (2,139,'biscuit',to_date('2020-03-18','yyyy-mm-dd'),421);
+insert into amazon_transactions values (3,120,'milk',to_date('2020-03-18','yyyy-mm-dd'),176);
+insert into amazon_transactions values (4,108,'banana',to_date('2020-03-18','yyyy-mm-dd'),862);
+insert into amazon_transactions values (5,130,'milk',to_date('2020-03-28','yyyy-mm-dd'),333);
+insert into amazon_transactions values (6,103,'bread',to_date('2020-03-29','yyyy-mm-dd'),862);
+insert into amazon_transactions values (7,122,'banana',to_date('2020-03-07','yyyy-mm-dd'),952);
+insert into amazon_transactions values (8,125,'bread',to_date('2020-03-13','yyyy-mm-dd'),317);
+insert into amazon_transactions values (9,139,'bread',to_date('2020-03-30','yyyy-mm-dd'),929);
+insert into amazon_transactions values (10,141,'banana',to_date('2020-03-17','yyyy-mm-dd'),812);
+insert into amazon_transactions values (11,116,'bread',to_date('2020-03-31','yyyy-mm-dd'),226);
+insert into amazon_transactions values (12,128,'bread',to_date('2020-03-04','yyyy-mm-dd'),112);
+insert into amazon_transactions values (13,146,'biscuit',to_date('2020-03-04','yyyy-mm-dd'),362);
+insert into amazon_transactions values (14,119,'banana',to_date('2020-03-28','yyyy-mm-dd'),127);
+insert into amazon_transactions values (15,142,'bread',to_date('2020-03-09','yyyy-mm-dd'),503);
+insert into amazon_transactions values (16,122,'bread',to_date('2020-03-06','yyyy-mm-dd'),593);
+insert into amazon_transactions values (17,128,'biscuit',to_date('2020-03-24','yyyy-mm-dd'),160);
+insert into amazon_transactions values (18,112,'banana',to_date('2020-03-24','yyyy-mm-dd'),262);
+insert into amazon_transactions values (19,149,'banana',to_date('2020-03-29','yyyy-mm-dd'),382);
+insert into amazon_transactions values (20,100,'banana',to_date('2020-03-18','yyyy-mm-dd'),599);
+insert into amazon_transactions values (21,130,'milk',to_date('2020-03-16','yyyy-mm-dd'),604);
+insert into amazon_transactions values (22,103,'milk',to_date('2020-03-31','yyyy-mm-dd'),290);
+insert into amazon_transactions values (23,112,'banana',to_date('2020-03-23','yyyy-mm-dd'),523);
+insert into amazon_transactions values (24,102,'bread',to_date('2020-03-25','yyyy-mm-dd'),325);
+insert into amazon_transactions values (25,120,'biscuit',to_date('2020-03-21','yyyy-mm-dd'),858);
+insert into amazon_transactions values (26,109,'bread',to_date('2020-03-22','yyyy-mm-dd'),432);
+insert into amazon_transactions values (27,101,'milk',to_date('2020-03-01','yyyy-mm-dd'),449);
+insert into amazon_transactions values (28,138,'milk',to_date('2020-03-19','yyyy-mm-dd'),961);
+insert into amazon_transactions values (29,100,'milk',to_date('2020-03-29','yyyy-mm-dd'),410);
+insert into amazon_transactions values (30,129,'milk',to_date('2020-03-02','yyyy-mm-dd'),771);
+insert into amazon_transactions values (31,123,'milk',to_date('2020-03-31','yyyy-mm-dd'),434);
+insert into amazon_transactions values (32,104,'biscuit',to_date('2020-03-31','yyyy-mm-dd'),957);
+insert into amazon_transactions values (33,110,'bread',to_date('2020-03-13','yyyy-mm-dd'),210);
+insert into amazon_transactions values (34,143,'bread',to_date('2020-03-27','yyyy-mm-dd'),870);
+insert into amazon_transactions values (35,130,'milk',to_date('2020-03-12','yyyy-mm-dd'),176);
+insert into amazon_transactions values (36,128,'milk',to_date('2020-03-28','yyyy-mm-dd'),498);
+insert into amazon_transactions values (37,133,'banana',to_date('2020-03-21','yyyy-mm-dd'),837);
+insert into amazon_transactions values (38,150,'banana',to_date('2020-03-20','yyyy-mm-dd'),927);
+insert into amazon_transactions values (39,120,'milk',to_date('2020-03-27','yyyy-mm-dd'),793);
+insert into amazon_transactions values (40,109,'bread',to_date('2020-03-02','yyyy-mm-dd'),362);
+insert into amazon_transactions values (41,110,'bread',to_date('2020-03-13','yyyy-mm-dd'),262);
+insert into amazon_transactions values (42,140,'milk',to_date('2020-03-09','yyyy-mm-dd'),468);
+insert into amazon_transactions values (43,112,'banana',to_date('2020-03-04','yyyy-mm-dd'),381);
+insert into amazon_transactions values (44,117,'biscuit',to_date('2020-03-19','yyyy-mm-dd'),831);
+insert into amazon_transactions values (45,137,'banana',to_date('2020-03-23','yyyy-mm-dd'),490);
+insert into amazon_transactions values (46,130,'bread',to_date('2020-03-09','yyyy-mm-dd'),149);
+insert into amazon_transactions values (47,133,'bread',to_date('2020-03-08','yyyy-mm-dd'),658);
+insert into amazon_transactions values (48,143,'milk',to_date('2020-03-11','yyyy-mm-dd'),317);
+insert into amazon_transactions values (49,111,'biscuit',to_date('2020-03-23','yyyy-mm-dd'),204);
+insert into amazon_transactions values (50,150,'banana',to_date('2020-03-04','yyyy-mm-dd'),299);
+insert into amazon_transactions values (51,131,'bread',to_date('2020-03-10','yyyy-mm-dd'),155);
+insert into amazon_transactions values (52,140,'biscuit',to_date('2020-03-17','yyyy-mm-dd'),810);
+insert into amazon_transactions values (53,147,'banana',to_date('2020-03-22','yyyy-mm-dd'),702);
+insert into amazon_transactions values (54,119,'biscuit',to_date('2020-03-15','yyyy-mm-dd'),355);
+insert into amazon_transactions values (55,116,'milk',to_date('2020-03-12','yyyy-mm-dd'),468);
+insert into amazon_transactions values (56,141,'milk',to_date('2020-03-14','yyyy-mm-dd'),254);
+insert into amazon_transactions values (57,143,'bread',to_date('2020-03-16','yyyy-mm-dd'),647);
+insert into amazon_transactions values (58,105,'bread',to_date('2020-03-21','yyyy-mm-dd'),562);
+insert into amazon_transactions values (59,149,'biscuit',to_date('2020-03-11','yyyy-mm-dd'),827);
+insert into amazon_transactions values (60,117,'banana',to_date('2020-03-22','yyyy-mm-dd'),249);
+insert into amazon_transactions values (61,150,'banana',to_date('2020-03-21','yyyy-mm-dd'),450);
+insert into amazon_transactions values (62,134,'bread',to_date('2020-03-08','yyyy-mm-dd'),981);
+insert into amazon_transactions values (63,133,'banana',to_date('2020-03-26','yyyy-mm-dd'),353);
+insert into amazon_transactions values (64,127,'milk',to_date('2020-03-27','yyyy-mm-dd'),300);
+insert into amazon_transactions values (65,101,'milk',to_date('2020-03-26','yyyy-mm-dd'),740);
+insert into amazon_transactions values (66,137,'biscuit',to_date('2020-03-12','yyyy-mm-dd'),473);
+insert into amazon_transactions values (67,113,'biscuit',to_date('2020-03-21','yyyy-mm-dd'),278);
+insert into amazon_transactions values (68,141,'bread',to_date('2020-03-21','yyyy-mm-dd'),118);
+insert into amazon_transactions values (69,112,'biscuit',to_date('2020-03-14','yyyy-mm-dd'),334);
+insert into amazon_transactions values (70,118,'milk',to_date('2020-03-30','yyyy-mm-dd'),603);
+insert into amazon_transactions values (71,111,'milk',to_date('2020-03-19','yyyy-mm-dd'),205);
+insert into amazon_transactions values (72,146,'biscuit',to_date('2020-03-13','yyyy-mm-dd'),599);
+insert into amazon_transactions values (73,148,'banana',to_date('2020-03-14','yyyy-mm-dd'),530);
+insert into amazon_transactions values (74,100,'banana',to_date('2020-03-13','yyyy-mm-dd'),175);
+insert into amazon_transactions values (75,105,'banana',to_date('2020-03-05','yyyy-mm-dd'),815);
+insert into amazon_transactions values (76,129,'milk',to_date('2020-03-02','yyyy-mm-dd'),489);
+insert into amazon_transactions values (77,121,'milk',to_date('2020-03-16','yyyy-mm-dd'),476);
+insert into amazon_transactions values (78,117,'bread',to_date('2020-03-11','yyyy-mm-dd'),270);
+insert into amazon_transactions values (79,133,'milk',to_date('2020-03-12','yyyy-mm-dd'),446);
+insert into amazon_transactions values (80,124,'bread',to_date('2020-03-31','yyyy-mm-dd'),937);
+insert into amazon_transactions values (81,145,'bread',to_date('2020-03-07','yyyy-mm-dd'),821);
+insert into amazon_transactions values (82,105,'banana',to_date('2020-03-09','yyyy-mm-dd'),972);
+insert into amazon_transactions values (83,131,'milk',to_date('2020-03-09','yyyy-mm-dd'),808);
+insert into amazon_transactions values (84,114,'biscuit',to_date('2020-03-31','yyyy-mm-dd'),202);
+insert into amazon_transactions values (85,120,'milk',to_date('2020-03-06','yyyy-mm-dd'),898);
+insert into amazon_transactions values (86,130,'milk',to_date('2020-03-06','yyyy-mm-dd'),581);
+insert into amazon_transactions values (87,141,'biscuit',to_date('2020-03-11','yyyy-mm-dd'),749);
+insert into amazon_transactions values (88,147,'bread',to_date('2020-03-14','yyyy-mm-dd'),262);
+insert into amazon_transactions values (89,118,'milk',to_date('2020-03-15','yyyy-mm-dd'),735);
+insert into amazon_transactions values (90,136,'biscuit',to_date('2020-03-22','yyyy-mm-dd'),410);
+insert into amazon_transactions values (91,132,'bread',to_date('2020-03-06','yyyy-mm-dd'),161);
+insert into amazon_transactions values (92,137,'biscuit',to_date('2020-03-31','yyyy-mm-dd'),427);
+insert into amazon_transactions values (93,107,'bread',to_date('2020-03-01','yyyy-mm-dd'),701);
+insert into amazon_transactions values (94,111,'biscuit',to_date('2020-03-18','yyyy-mm-dd'),218);
+insert into amazon_transactions values (95,100,'bread',to_date('2020-03-07','yyyy-mm-dd'),410);
+insert into amazon_transactions values (96,106,'milk',to_date('2020-03-21','yyyy-mm-dd'),379);
+insert into amazon_transactions values (97,114,'banana',to_date('2020-03-25','yyyy-mm-dd'),705);
+insert into amazon_transactions values (98,110,'bread',to_date('2020-03-27','yyyy-mm-dd'),225);
+insert into amazon_transactions values (99,130,'milk',to_date('2020-03-16','yyyy-mm-dd'),494);
+insert into amazon_transactions values (100,117,'bread',to_date('2020-03-10','yyyy-mm-dd'),209);
+commit;

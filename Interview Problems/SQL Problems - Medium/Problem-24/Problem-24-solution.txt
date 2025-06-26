@@ -1,0 +1,15 @@
+-- SOLUTION
+
+WITH UserTransactions AS (
+    SELECT user_id, 
+           COUNT(*) AS total_transactions, 
+           SUM(CASE WHEN status = 'failed' THEN 1 ELSE 0 END) AS failed_transactions
+    FROM transactions
+    WHERE transaction_date >= current_date - INTERVAL '1 day'
+    GROUP BY user_id
+)
+SELECT u.user_id, u.name, ut.total_transactions, ut.failed_transactions
+FROM UserTransactions ut
+JOIN users u ON ut.user_id = u.user_id
+WHERE ut.total_transactions > 5 AND ut.failed_transactions >= 3;
+

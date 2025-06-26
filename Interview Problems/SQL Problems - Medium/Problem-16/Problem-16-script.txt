@@ -1,0 +1,18 @@
+drop table if exists student_result;
+create table student_result
+(
+	student_id		int,
+	semester		int,
+	result			varchar(10)
+);
+insert into student_result values(1,1,'Pass');
+insert into student_result values(1,2,'Pass');
+insert into student_result values(1,3,'Pass');
+insert into student_result values(1,4,'Fail');
+insert into student_result values(1,5,'Fail');
+insert into student_result values(1,6,'Fail');
+insert into student_result values(1,7,'Fail');
+insert into student_result values(1,8,'Pass');
+
+select * from student_result;
+

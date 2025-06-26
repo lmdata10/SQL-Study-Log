@@ -1,0 +1,10 @@
+
+with recursive cte as
+	(select 1 as num
+	union 
+	 select (num + 1) as num
+	 from cte 
+	 where num < 10
+	)
+select *
+from cte;

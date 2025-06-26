@@ -1,0 +1,21 @@
+DROP table if exists UserActivity;
+create table UserActivity
+(
+    username      varchar(50),
+    activity      varchar(50),
+    startDate     Date,
+    endDate       Date
+);
+
+insert into UserActivity values ('Amy', 'Travel', to_date('2020-02-12','yyyy-mm-dd'), to_date('2020-02-20','yyyy-mm-dd'));
+insert into UserActivity values ('Amy', 'Dancing', to_date('2020-02-21','yyyy-mm-dd'), to_date('2020-02-23','yyyy-mm-dd'));
+insert into UserActivity values ('Amy', 'Travel', to_date('2020-02-24','yyyy-mm-dd'), to_date('2020-02-28','yyyy-mm-dd'));
+insert into UserActivity values ('Joe', 'Travel', to_date('2020-02-11','yyyy-mm-dd'), to_date('2020-02-18','yyyy-mm-dd'));
+insert into UserActivity values ('Adam', 'Travel', to_date('2020-02-12','yyyy-mm-dd'), to_date('2020-02-20','yyyy-mm-dd'));
+insert into UserActivity values ('Adam', 'Dancing', to_date('2020-02-21','yyyy-mm-dd'), to_date('2020-02-23','yyyy-mm-dd'));
+insert into UserActivity values ('Adam', 'Singing', to_date('2020-02-24','yyyy-mm-dd'), to_date('2020-02-28','yyyy-mm-dd'));
+insert into UserActivity values ('Adam', 'Travel', to_date('2020-03-01','yyyy-mm-dd'), to_date('2020-03-28','yyyy-mm-dd'));
+
+
+select * from UserActivity;
+

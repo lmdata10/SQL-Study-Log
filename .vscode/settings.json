@@ -1,0 +1,16 @@
+{
+    "sqltools.connections": [
+        {
+            "previewLimit": 50,
+            "server": "localhost",
+            "port": 5432,
+            "driver": "PostgreSQL",
+            "name": "postgres",
+            "username": "postgres",
+            "database": "moviesdb"
+        }
+    ],
+    "dataworkspace.excludedProjects": [
+        "lm/lm.sqlproj"
+    ]
+}

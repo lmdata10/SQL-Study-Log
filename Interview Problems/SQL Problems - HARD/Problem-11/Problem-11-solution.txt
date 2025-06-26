@@ -1,0 +1,39 @@
+-- SOLUTION 1 using WITH ORDINALITY:
+with recursive cte as
+		(select *, 1 as iteration, max(idx) over() as max_idx 
+		 from cte_values where idx=1
+		union
+		 select cv.*, (iteration+1) as iteration, max(cv.idx) over() as max_idx 
+		 from cte
+		 join cte_values cv on cv.idx between cte.max_idx+1 and cte.max_idx+1+iteration
+		),
+	cte_values as
+		(select x.*
+		from arbitrary_values 
+		cross join unnest(string_to_array(val, ' , ') ) with ordinality as x(val, idx))
+select iteration as grp, string_agg(val,' , ') as val
+from cte
+group by iteration
+order by iteration;
+
+
+
+-- SOLUTION 2 using WINDOW FUNCTION:
+with recursive cte as 
+		(select * , 1 as lvl, max(rn) over() as max_row
+		 from cte_data where rn=1
+		union
+		 select cd.*, lvl+1 as lvl, max(cd.rn) over() as max_row
+		 from cte
+		 join cte_data cd on cd.rn between cte.max_row+1 and cte.max_row+lvl+1
+		),
+	cte_data as	
+		(select val, row_number() over() as rn
+		from (select unnest(string_to_array(val,' , ')) as val  from arbitrary_values) x)
+select lvl as grp, string_agg(val, ' , ') as val
+from cte
+group by lvl
+order by lvl;
+	
+
+

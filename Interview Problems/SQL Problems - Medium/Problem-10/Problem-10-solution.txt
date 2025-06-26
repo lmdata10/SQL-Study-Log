@@ -1,0 +1,10 @@
+-- Solution:
+select year, current_year_host, prev_year_host
+    , round(((current_year_host - prev_year_host)/prev_year_host) * 100) as estimated_growth
+from (
+    select to_char(host_since,'yyyy') as year
+        , count(1)::decimal as current_year_host
+        , lag(count(1)::decimal) over(order by to_char(host_since,'yyyy')) as prev_year_host
+    from airbnb_search_details
+    group by to_char(host_since,'yyyy')
+    order by year) x

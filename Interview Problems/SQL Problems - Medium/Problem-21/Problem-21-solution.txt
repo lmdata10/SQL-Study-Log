@@ -1,0 +1,16 @@
+-- SOLUTION:
+with first_orders as 
+        (select customer_id, min(order_date) as first_order_date, max(order_date) as last_order_date
+        from orders 
+        group by customer_id),
+    recent_orders as 
+        (select distinct customer_id
+        from orders 
+        where order_date >= current_date - interval '6 months')
+select c.customer_id, c.name, f.first_order_date, f.last_order_date
+from customers c 
+join first_orders f on f.customer_id = c.customer_id
+left join recent_orders r on r.customer_id = f.customer_id
+where extract(year from f.first_order_date) = '2023'
+and r.customer_id is null ;
+

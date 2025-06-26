@@ -1,0 +1,27 @@
+-- Find the average rides taken by each user in the last 30 days.
+-- Only rides marked as completed or without status must be considered.
+
+
+drop table if exists taxi_rides;
+create table taxi_rides
+(
+	user_id		int,
+	dates		date,
+	duration	int,
+	cost		decimal,
+	status		varchar(30)
+);
+insert into taxi_rides values(1, current_date - interval '14 DAY', 600, 30, 'Completed'); 
+insert into taxi_rides values(1, current_date - interval '24 DAY', 620, 35, 'Completed'); 
+insert into taxi_rides values(1, current_date - interval '05 DAY', 500, 30, 'Completed'); 
+insert into taxi_rides values(2, current_date - interval '10 DAY', 650, 20, 'Cancelled'); 
+insert into taxi_rides values(2, current_date - interval '20 DAY', 680, 40, 'Completed'); 
+insert into taxi_rides values(3, current_date - interval '01 DAY', 700, 50, 'Completed'); 
+insert into taxi_rides values(3, current_date - interval '02 DAY', 640, 35, 'Cancelled'); 
+insert into taxi_rides values(3, current_date - interval '21 DAY', 340, 10, 'Completed'); 
+insert into taxi_rides values(3, current_date - interval '32 DAY', 410, 20, 'Completed'); 
+insert into taxi_rides values(4, current_date - interval '25 DAY', 550, 25, null); 
+
+
+select * from taxi_rides;
+

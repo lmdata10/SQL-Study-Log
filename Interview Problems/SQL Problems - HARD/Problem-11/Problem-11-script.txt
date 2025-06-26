@@ -1,0 +1,19 @@
+drop table arbitrary_values;
+create table arbitrary_values(val varchar(1000));
+
+-- Given dataset can be values in different rows as shown here
+/*insert into arbitrary_values values 
+	('a1'),('a2'),('a3'),('a4'),
+	('a5'),('a6'),('a7'),('a8'),
+	('a9'),('a10'),('a11'),('a12'),
+	('a13'),('a14'),('a15'),('a16'),
+	('a17'),('a18'),('a19'),('a20'),('a21');
+*/
+-- Given dataset can be comma seperated values in single row column:
+insert into arbitrary_values values 
+ 	('a1 , a2 , a3 , a4 , a5 , a6 , a7 , a8 , a9 , a10 , a11 , a12 , a13 , a14 , a15 , a16 , a17 , a18 , a19 , a20 , a21');
+
+select * from arbitrary_values;	
+	
+
+

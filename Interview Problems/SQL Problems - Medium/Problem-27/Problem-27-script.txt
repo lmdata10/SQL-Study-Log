@@ -1,0 +1,44 @@
+
+--- Election Exit Poll by state report ---
+
+-- DATASET
+drop table if exists candidates_tab;
+create table candidates_tab
+(
+    id          int,
+    first_name  varchar(50),
+    last_name   varchar(50)
+);
+insert into candidates_tab values(1, 'Davide', 'Kentish');
+insert into candidates_tab values(2, 'Thorstein', 'Bridge');
+
+drop table if exists results_tab;
+create table results_tab
+(
+    candidate_id    int,
+    state           varchar(50)
+);
+insert into results_tab values(1, 'Alabama');
+insert into results_tab values(1, 'Alabama');
+insert into results_tab values(1, 'California');
+insert into results_tab values(1, 'California');
+insert into results_tab values(1, 'California');
+insert into results_tab values(1, 'California');
+insert into results_tab values(1, 'California');
+insert into results_tab values(2, 'California');
+insert into results_tab values(2, 'California');
+insert into results_tab values(2, 'New York');
+insert into results_tab values(2, 'New York');
+insert into results_tab values(2, 'Texas');
+insert into results_tab values(2, 'Texas');
+insert into results_tab values(2, 'Texas');
+
+insert into results_tab values(1, 'New York');
+insert into results_tab values(1, 'Texas');
+insert into results_tab values(1, 'Texas');
+insert into results_tab values(1, 'Texas');
+insert into results_tab values(2, 'California');
+insert into results_tab values(2, 'Alabama');
+
+select * from candidates_tab;
+select * from results_tab;

@@ -1,0 +1,10 @@
+
+select  day
+from (
+    select *
+    , lag(holiday,1,False) over(order by day) as prev_holiday
+    , lead(holiday,1,False) over(order by day) as next_holiday
+    from calendar) x
+where holiday is True and (next_holiday is True or prev_holiday is True)
+
+

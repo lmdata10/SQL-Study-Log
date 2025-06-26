@@ -1,0 +1,4 @@
+
+select word as sortedss_words 
+from words
+order by substring(word,length(word),1); -- Sorting the word using the last letter

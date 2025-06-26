@@ -1,0 +1,17 @@
+-- Solution
+select date, total_consumption
+from (
+    select date, total_consumption
+    , rank() over(order by total_consumption desc) as rnk
+    from (
+        select date, sum(consumption) as total_consumption
+        from (
+            select date, consumption from fb_eu_energy eu
+            union all
+            select date, consumption from fb_asia_energy asia
+            union all
+            select date, consumption from fb_na_energy na ) x
+        group by date
+        order by 2 desc) y
+    ) z
+where rnk = 1;

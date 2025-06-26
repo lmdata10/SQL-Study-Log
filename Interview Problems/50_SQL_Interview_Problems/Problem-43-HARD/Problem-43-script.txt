@@ -1,0 +1,4 @@
+
+
+-- Without using any inbuilt functions, write an SQL query to print numbers from 1 to 10 
+

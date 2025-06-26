@@ -1,0 +1,5 @@
+
+select val, string_agg(new_val, ',')
+from (select val, length(unnest(string_to_array(val,',')))::varchar as new_val
+	from value_table) x
+group by val

@@ -1,0 +1,34 @@
+-- Solution 1: using SELF join
+with total_accepted as
+        (select sent.date, count(1)::float as tot_accept
+		from fb_friend_requests sent
+		join fb_friend_requests accept on sent.user_id_sender = accept.user_id_sender
+		where sent.action='sent'
+		and accept.action='accepted'
+		group by sent.date),
+    total_requests as
+        (select date, count(1)::float as tot_req
+		 from fb_friend_requests
+         where action='sent' group by date)
+select tr.date, ta.tot_accept/tr.tot_req as percent_acceptance
+from total_requests tr
+join total_accepted ta on ta.date=tr.date
+order by tr.date ;
+
+-- Solution 2: Without using SELF join
+with total_accepted as
+        (with sent as
+                (select * from fb_friend_requests where action='sent'),
+            accepted as
+                (select * from fb_friend_requests where action='accepted')
+        select s.date, count(1) as tot_accept
+        from sent s
+        join accepted a on a.user_id_sender = s.user_id_sender
+        group by s.date),
+    total_requests as
+        (select date,count(1) as tot_req from fb_friend_requests
+        where action='sent' group by date)
+select tr.date, cast(ta.tot_accept as float)/cast(tr.tot_req as float) as percent_acceptance
+from total_requests tr
+join total_accepted ta on ta.date=tr.date
+order by tr.date ;

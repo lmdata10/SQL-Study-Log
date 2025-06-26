@@ -1,0 +1,10 @@
+
+select round(avg(price),2) as avg_order_price
+, count(id) as total_orders
+from orders o
+join store_calendar c 
+	on extract(year from o.order_date) = c.year
+	and extract(month from o.order_date) = c.month
+	and extract(day from o.order_date) = c.day
+where c.holiday is true
+and o.stream = 'Online';

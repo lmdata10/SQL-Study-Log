@@ -1,0 +1,11 @@
+-- SOLUTION
+with cte as
+    (select *
+    , rank() over(partition by r.constituency_id order by r.votes desc) as rnk
+    from candidates c
+    join results r on r.candidate_id = c.id)
+select concat(party, ' ', count(1)) as party_seats_won
+from cte 
+where rnk = 1
+group by party 
+order by count(1) desc;

@@ -1,0 +1,22 @@
+/* Write an SQL query to display the correct message (meaningful message) from the input
+comments_and_translation table. */
+
+drop table comments_and_translations;
+create table comments_and_translations
+(
+	id				int,
+	comment			varchar(100),
+	translation		varchar(100)
+);
+
+insert into comments_and_translations values (1, 'very good', null);
+insert into comments_and_translations values (2, 'good', null);
+insert into comments_and_translations values (3, 'bad', null);
+insert into comments_and_translations values (4, 'ordinary', null);
+insert into comments_and_translations values (5, 'cdcdcdcd', 'very bad');
+insert into comments_and_translations values (6, 'excellent', null);
+insert into comments_and_translations values (7, 'ababab', 'not satisfied');
+insert into comments_and_translations values (8, 'satisfied', null);
+insert into comments_and_translations values (9, 'aabbaabb', 'extraordinary');
+insert into comments_and_translations values (10, 'ccddccbb', 'medium');
+commit;

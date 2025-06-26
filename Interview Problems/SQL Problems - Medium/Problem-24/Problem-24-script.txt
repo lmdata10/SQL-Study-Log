@@ -1,0 +1,72 @@
+/* --- Financial Transactions – Fraud Detection ---
+
+Problem Statement: 
+Identify users who made more than 5 transactions in the last 24 hours, where at least 3 were failed.
+
+*/
+
+
+-- Users Table
+drop TABLE if exists users;
+CREATE TABLE users 
+(
+    user_id int,
+    name VARCHAR(100),
+    email VARCHAR(100) UNIQUE,
+    account_created DATE
+);
+
+INSERT INTO users (user_id, name, email, account_created) VALUES
+(1, 'Ethan Parker', 'ethan@tmail.com', '2022-01-15'),
+(2, 'Olivia Martinez', 'olivia@tmail.com', '2023-03-20'),
+(3, 'James Carter', 'james@tmail.com', '2021-08-05');
+
+
+
+-- Transactions Table
+drop TABLE if exists transactions;
+CREATE TABLE transactions 
+(
+    transaction_id int,
+    user_id INT ,
+    transaction_date DATE,
+    amount DECIMAL(10,2),
+    type VARCHAR(20),
+    status VARCHAR(20)
+);
+
+INSERT INTO transactions (transaction_id, user_id, transaction_date, amount, type, status) VALUES
+(1, 1, '2025-03-14', 500.00, 'deposit', 'successful'),
+(2, 2, '2025-03-14', 150.00, 'withdrawal', 'failed'),
+(3, 3, '2025-03-14', 300.00, 'deposit', 'failed'),
+
+(4, 1, '2025-03-14', 600.00, 'deposit', 'successful'),
+(5, 2, '2025-03-14', 250.00, 'withdrawal', 'failed'),
+(6, 3, '2025-03-14', 400.00, 'deposit', 'successful'),
+
+(7, 1, '2025-03-14', 300.00, 'deposit', 'successful'),
+(8, 2, '2025-03-14', 450.00, 'withdrawal', 'failed'),
+(9, 3, '2025-03-14', 200.00, 'deposit', 'failed'),
+
+(10, 1, '2025-03-15', 300.00, 'deposit', 'successful'),
+(11, 2, '2025-03-15', 350.00, 'withdrawal', 'failed'),
+(12, 3, '2025-03-15', 400.00, 'deposit', 'successful'),
+
+(13, 1, '2025-03-15', 500.00, 'deposit', 'successful'),
+(14, 2, '2025-03-15', 550.00, 'withdrawal', 'failed'),
+(15, 3, '2025-03-15', 500.00, 'deposit', 'failed'),
+
+(16, 1, '2025-03-15', 300.00, 'deposit', 'successful'),
+(17, 2, '2025-03-15', 250.00, 'withdrawal', 'failed'),
+(18, 3, '2025-03-15', 200.00, 'deposit', 'failed'),
+
+(19, 2, '2025-03-15', 750.00, 'withdrawal', 'successful'),
+(20, 3, '2025-03-15', 800.00, 'deposit', 'successful');
+
+
+select * from users;
+select * from transactions;
+
+
+
+

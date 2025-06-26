@@ -1,0 +1,9 @@
+
+
+select replace(trim(trim(concat(first_name, '-', middle_name, '-', last_name)),'-'),'--','-') as cust_name
+from cust_names
+where length(trim(concat(first_name, ' ', middle_name, ' ', last_name))) >0
+
+
+
+

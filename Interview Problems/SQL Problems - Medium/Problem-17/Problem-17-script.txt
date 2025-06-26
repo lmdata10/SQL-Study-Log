@@ -1,0 +1,11 @@
+-- Write a query to return the most repeated word in all of the feedbacks given. Ignore the case
+
+drop table if exists feedback;
+create table feedback(user_id int, rating decimal, feedback varchar(500));
+insert into feedback values(1, 4.0, 'Very good class, learnt a lot!');
+insert into feedback values(2, 5.0, 'Amazing learning experience. Very good teacher and covered all important concepts');
+insert into feedback values(3, 3.0, 'Good class but could have been better');
+insert into feedback values(4, 3.5, 'Average course. Needed more theoritical guidance');
+insert into feedback values(5, 4.5, 'Loved the course. Everything was perfect except for the fast pace');
+
+select * from feedback;
